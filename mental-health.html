@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health & Wellness</title>
+    <style>
+        :root {
+            --primary: #2C6BAC;
+            --secondary: #4285F4;
+            --accent: #FFA726;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --danger: #D32F2F;
+            --success: #388E3C;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1A4F8C, #2C6BAC);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            color: #1A4F8C;
+            border-bottom: 2px solid #1A4F8C;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: #e2e2e3;
+            margin-top: 1.5rem;
+        }
+        
+        .quote {
+            background-color: #E8F0FE;
+            border-left: 5px solid #FFA726;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: #4285F4;
+            color: white;
+            padding: 1rem;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .warning {
+            background-color: #FFEBEE;
+            border-left: 5px solid #D32F2F;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #212529;
+        }
+        
+        ul.checklist {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        ul.checklist li {
+            padding: 0.5rem 0 0.5rem 2rem;
+            position: relative;
+        }
+        
+        ul.checklist li:before {
+            content: "✓";
+            color: #388E3C;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .resource-link {
+            display: block;
+            background: #E8F0FE;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #212529;
+            border-left: 4px solid #4285F4;
+            transition: background-color 0.2s ease;
+        }
+        
+        .resource-link:hover {
+            background-color: #D2E3FC;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #1A4F8C, #4285F4);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        button {
+            background-color: #FFA726;
+            color: #212529;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        button:hover {
+            background-color: #FB8C00;
+        }
+        
+        .progress-tracker {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        .progress-item {
+            margin: 1rem 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #E0E0E0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-value {
+            height: 100%;
+            background-color: #4285F4;
+            border-radius: 5px;
+        }
+        
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            margin-top: 1rem;
+        }
+        
+        .footer-links a {
+            color: #E8F0FE;
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Mental Health & Wellness</h1>
+            <p class="tagline">Understanding, supporting, and nurturing your mental wellbeing</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="intro">
+            <h2>Understanding Mental Health</h2>
+            <p>Mental health includes our emotional, psychological, and social well-being. It affects how we think, feel, and act. It also helps determine how we handle stress, relate to others, and make choices. Mental health is important at every stage of life, from childhood and adolescence through adulthood.</p>
+            
+            <div class="quote">
+                "Mental health is not a destination, but a process. It's about how you drive, not where you're going." — Noam Shpancer, PhD
+            </div>
+            
+            <p>Many factors contribute to mental health problems, including:</p>
+            <ul>
+                <li>Biological factors, such as genes or brain chemistry</li>
+                <li>Life experiences, such as trauma or abuse</li>
+                <li>Family history of mental health problems</li>
+                <li>Lifestyle factors including diet, physical activity, and substance use</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>Important:</strong> Mental health problems are common but help is available. People with mental health problems can get better and many recover completely.
+            </div>
+        </section>
+        
+        <section id="common-conditions">
+            <h2>Common Mental Health Conditions</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Anxiety Disorders</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Anxiety disorders involve persistent, excessive fear or worry in situations that are not threatening. People experiencing anxiety disorders may avoid situations out of worry, experience physical symptoms like sweating and rapid heartbeat.</p>
+                        <p><strong>Types include:</strong> Generalized Anxiety Disorder, Panic Disorder, Social Anxiety Disorder, and specific phobias.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Depression</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Depression is more than just feeling sad or going through a rough patch. It's a serious mental health condition that requires understanding and medical care. Depression can cause severe symptoms that affect how you feel, think, and handle daily activities.</p>
+                        <p><strong>Types include:</strong> Major Depressive Disorder, Persistent Depressive Disorder, Seasonal Affective Disorder, and Postpartum Depression.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>PTSD</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Post-traumatic stress disorder (PTSD) can develop after experiencing or witnessing a traumatic event. People with PTSD may have disturbing thoughts and feelings related to their experience that last long after the traumatic event has ended.</p>
+                        <p><strong>Symptoms include:</strong> Flashbacks, nightmares, severe anxiety, and uncontrollable thoughts about the event.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Bipolar Disorder</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Bipolar disorder causes dramatic shifts in a person's mood, energy, and ability to think clearly. People with this disorder experience emotional highs (mania or hypomania) and lows (depression).</p>
+                        <p><strong>Types include:</strong> Bipolar I Disorder, Bipolar II Disorder, and Cyclothymic Disorder.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="self-care">
+            <h2>Mental Health Self-Care Practices</h2>
+            <p>Taking care of your mental health is just as important as caring for your physical health. Here are some evidence-based strategies to nurture your mental wellbeing:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Physical Wellbeing</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="checklist">
+                            <li>Get regular exercise (aim for 30 minutes daily)</li>
+                            <li>Maintain a nutritious diet rich in fruits, vegetables, whole grains, and lean proteins</li>
+                            <li>Prioritize sleep quality and aim for 7-9 hours nightly</li>
+                            <li>Limit alcohol and avoid recreational drugs</li>
+                            <li>Stay hydrated throughout the day</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Emotional Wellbeing</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="checklist">
+                            <li>Practice mindfulness meditation daily</li>
+                            <li>Keep a gratitude journal</li>
+                            <li>Express emotions in healthy ways (talking, creating art, journaling)</li>
+                            <li>Set and maintain healthy boundaries</li>
+                            <li>Take breaks when feeling overwhelmed</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Social Wellbeing</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="checklist">
+                            <li>Nurture meaningful relationships</li>
+                            <li>Reach out to trusted friends or family when struggling</li>
+                            <li>Join community groups or clubs aligned with your interests</li>
+                            <li>Volunteer for causes you care about</li>
+                            <li>Practice empathy and active listening</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cognitive Wellbeing</h3>
+                    </div>
+                    <div class="card-content">
+                        <ul class="checklist">
+                            <li>Challenge negative thought patterns</li>
+                            <li>Practice positive self-talk</li>
+                            <li>Set realistic goals and expectations</li>
+                            <li>Engage in activities that challenge your mind</li>
+                            <li>Take breaks from news and social media</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="cta-box">
+            <h3>Track Your Mental Wellbeing</h3>
+            <p>Monitoring your mental health can help you notice patterns, identify triggers, and recognize improvements. Start your self-care journey today!</p>
+            <button>Start Tracking</button>
+        </div>
+        
+        <section id="wellness-tracker">
+            <h2>Wellness Tracker</h2>
+            <p>Use this example wellness tracker to monitor different aspects of your mental health over time. Rate each area from 1 (struggling) to 10 (excellent).</p>
+            
+            <div class="progress-tracker">
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Sleep Quality</span>
+                        <span>7/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 70%;"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Stress Management</span>
+                        <span>6/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 60%;"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Social Connection</span>
+                        <span>8/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 80%;"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Mood Stability</span>
+                        <span>5/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="when-to-seek-help">
+            <h2>When to Seek Professional Help</h2>
+            <p>While self-care strategies are important, sometimes professional help is necessary. Consider seeking help if you experience:</p>
+            
+            <ul>
+                <li>Persistent feelings of sadness or hopelessness lasting more than two weeks</li>
+                <li>Overwhelming worry or fear that interferes with daily activities</li>
+                <li>Extreme mood changes</li>
+                <li>Significant changes in eating or sleeping patterns</li>
+                <li>Difficulties performing usual daily functions or responsibilities</li>
+                <li>Withdrawal from friends, family, and usual activities</li>
+                <li>Unusual thoughts, behaviors, or feelings that concern you or others</li>
+                <li>Thoughts of harming yourself or others</li>
+            </ul>
+            
+            <div class="warning">
+                <strong>Emergency Situations:</strong> If you or someone you know is in immediate danger of self-harm or suicide, call your local emergency number (like 911 in the US) or go to the nearest emergency room. For non-emergency situations, contact a mental health professional or call a crisis helpline.
+            </div>
+        </section>
+        
+        <section id="professional-help">
+            <h2>Types of Mental Health Professionals</h2>
+            <p>Different mental health professionals offer different types of services:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Psychiatrists</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Medical doctors who can diagnose mental health conditions, prescribe and monitor medications, and provide therapy. They specialize in mental health and can help determine if symptoms have a physical cause.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Psychologists</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Professionals with doctoral degrees (PhD, PsyD) who can diagnose conditions and provide therapy. They specialize in psychological testing and evidence-based therapy approaches but typically cannot prescribe medication.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Therapists & Counselors</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Mental health professionals (including licensed clinical social workers, licensed professional counselors, and marriage and family therapists) who provide therapy and counseling to help people address emotional, behavioral, or mental health concerns.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Primary Care Providers</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Physicians, nurse practitioners, and physician assistants often serve as the first point of contact. They can help with initial assessment, prescribe some medications, and refer to specialized mental health providers when needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="treatment-approaches">
+            <h2>Common Treatment Approaches</h2>
+            <p>Mental health treatment is often personalized to the individual, and may include:</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Psychotherapy (Talk Therapy)</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Talking with a mental health professional to develop coping strategies, process feelings, and change behavior patterns.</p>
+                        <p><strong>Types include:</strong> Cognitive Behavioral Therapy (CBT), Dialectical Behavior Therapy (DBT), Psychodynamic Therapy, and Interpersonal Therapy.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Medication</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Psychiatric medications work by regulating brain chemicals that affect mood and thoughts. They are often used alongside therapy.</p>
+                        <p><strong>Types include:</strong> Antidepressants, anti-anxiety medications, mood stabilizers, and antipsychotics.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lifestyle Changes</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Modifications to daily habits that support mental wellness, often recommended alongside other treatments.</p>
+                        <p><strong>Examples include:</strong> Regular exercise, improved sleep hygiene, nutritional changes, stress reduction techniques, and social connection.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Support Groups</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Groups where people with similar experiences meet to share challenges and successes, provide emotional support, and exchange practical information.</p>
+                        <p>Can be in-person or online, peer-led or professionally facilitated.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="resources">
+            <h2>Mental Health Resources</h2>
+            <p>Below are helpful resources for learning more about mental health, finding support, and connecting with professionals:</p>
+            
+            <h3>Crisis Resources</h3>
+            <a href="#" class="resource-link">National Suicide Prevention Lifeline: 988 or 1-800-273-8255</a>
+            <a href="#" class="resource-link">Crisis Text Line: Text HOME to 741741</a>
+            <a href="#" class="resource-link">Veterans Crisis Line: 988, press 1</a>
+            
+            <h3>General Mental Health Resources</h3>
+            <a href="#" class="resource-link">National Alliance on Mental Illness (NAMI)</a>
+            <a href="#" class="resource-link">Mental Health America</a>
+            <a href="#" class="resource-link">Substance Abuse and Mental Health Services Administration (SAMHSA)</a>
+            
+            <h3>Find a Mental Health Professional</h3>
+            <a href="#" class="resource-link">Psychology Today Therapist Directory</a>
+            <a href="#" class="resource-link">SAMHSA Treatment Locator</a>
+            <a href="#" class="resource-link">American Psychiatric Association: Find a Psychiatrist</a>
+        </section>
+        
+        <section id="supporting-others">
+            <h2>Supporting Someone with Mental Health Challenges</h2>
+            <p>If someone you care about is struggling with their mental health, here are ways to help:</p>
+            
+            <ul class="checklist">
+                <li>Learn about their specific mental health condition</li>
+                <li>Express your concern and willingness to help</li>
+                <li>Listen without judgment or trying to "fix" the problem</li>
+                <li>Encourage them to seek professional help and offer to help them find resources</li>
+                <li>Continue including them in activities and social events, even if they often decline</li>
+                <li>Be patient and understand that recovery takes time</li>
+                <li>Take care of your own mental health while supporting others</li>
+            </ul>
+            
+            <div class="quote">
+                "The most basic and powerful way to connect to another person is to listen. Just listen. Perhaps the most important thing we ever give each other is our attention." — Rachel Naomi Remen
+            </div>
+        </section>
+        
+        <div class="cta-box">
+            <h3>Mental Health is For Everyone</h3>
+            <p>Whether you're managing a mental health condition, supporting someone who is, or simply working on your overall wellbeing, mental health matters. Take the first step today.</p>
+            <button>Learn More About Mental Health</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 Mental Health & Wellness Resource Center</p>
+            <p>This website provides general information about mental health for educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+            
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

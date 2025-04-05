@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <title>Home | E-Health Care</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+   /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f0e7;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background: #0fc622;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    animation: slideDown 1s ease-in-out;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Container Styles */
+.container {
+    padding: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Info Section Styles */
+.info-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    animation: fadeUp 1s ease-in-out;
+}
+
+.info-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px; /* Increased padding */
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly more prominent shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    width: 400px; /* Increased width */
+    height: 200px; /* Increased height */
+    animation: bounceIn 1s ease-in-out;
+}
+
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.info-card i {
+    font-size: 30px;
+    color: #007bff;
+    margin-bottom: 10px;
+    animation: fadeIn 1.2s ease;
+}
+
+.info-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Response Section Styles */
+.response-section {
+    margin-top: 20px;
+    padding: 20px;
+    display: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.response-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.response-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.response-container p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    text-align: justify;
+}
+
+.response-container::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: #007bff;
+    margin: 0 auto 15px;
+    border-radius: 2px;
+    animation: slideIn 0.8s ease;
+}
+
+
+
+/* Contact Section Styles */
+.contact-section {
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 24px;
+    color: #007bff;
+}
+
+.contact-section form {
+    margin-top: 20px;
+}
+
+.contact-section input,
+.contact-section textarea,
+.contact-section button {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-section button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.contact-section button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Keyframes for Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        width: 0;
+    }
+    to {
+        width: 50px;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .info-card {
+        flex: 1 1 100%;
+        margin-bottom: 15px;
+    }
+
+    .hero-section h2 {
+        font-size: 2em;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .hero-section {
+        padding: 20px;
+    }
+
+    .response-container {
+        padding: 15px;
+        font-size: 1em;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+<div style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background: white; position: fixed; width: 100%; top: 0; z-index: 1000;">
+    <div style="max-width: 1200px; margin: auto; padding: 10px;">
+        <nav style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            
+            <!-- Logo -->
+            <div style="
+                font-family: Arial, sans-serif; 
+                font-size: 24px; 
+                font-weight: bold;
+                background: linear-gradient(to right, #337EFF, #8E5CFF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;">
+                MediMind AI
+            </div>
+  
+            <!-- Toggler Button for Mobile -->
+            <button id="menu-btn" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;" 
+                onclick="toggleMenu()">
+                ☰
+            </button>
+  
+            <!-- Navbar Items -->
+            <div id="navbar-menu" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; transition: all 0.3s ease-in-out;">
+                <a href="index.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Home</a>
+                <a href="heart-checkup.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Heart Checkup</a>
+                <a href="Covid.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">Covid-19</a>
+                <a href="about.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">About Us</a>
+  
+                <!-- Search Bar -->
+                <form style="display: flex; align-items: center;">
+                    <input type="search" placeholder="Search..." aria-label="Search"
+                           style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; max-width: 200px; transition: 0.3s;" 
+                           onfocus="this.style.border='1px solid #337EFF'" onblur="this.style.border='1px solid #ccc'">
+                    <button type="submit" style="background: green; color: white; padding: 8px 12px; border: none; margin-left: 5px; cursor: pointer; border-radius: 4px;">
+                        🔍
+                    </button>
+                </form>
+  
+                <!-- Services Dropdown -->
+                <div style="position: relative;">
+                    <button onclick="toggleDropdown()" style="background: red; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                        Services ⬇
+                    </button>
+                    <ul id="servicesDropdown" style="display: none; position: absolute; background: white; list-style: none; padding: 10px; margin: 0; border-radius: 4px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <li><a href="cancer.html" style="text-decoration: none; color: black; display: block; padding: 5px 10px;">Cancer</a></li>
+                    </ul>
+                </div>
+  
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleTheme()" style="background: gray; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                    🌙
+                </button>
+            </div>
+        </nav>
+    </div>
+  </div>
+  <!-- Navbar End -->
+  
+  <!-- JavaScript for Dropdown & Mobile Menu -->
+  <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("servicesDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  
+    function toggleMenu() {
+        var menu = document.getElementById("navbar-menu");
+        var button = document.getElementById("menu-btn");
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "flex";
+            button.innerHTML = "✖"; // Change to close icon
+        } else {
+            menu.style.display = "none";
+            button.innerHTML = "☰"; // Change to menu icon
+        }
+    }
+  
+    function toggleTheme() {
+        var body = document.body;
+        var nav = document.querySelector("div");
+        var links = document.querySelectorAll("a");
+        if (body.style.background === "black") {
+            body.style.background = "white";
+            body.style.color = "black";
+            nav.style.background = "white";
+            links.forEach(link => link.style.color = "black");
+        } else {
+            body.style.background = "black";
+            body.style.color = "white";
+            nav.style.background = "#222";
+            links.forEach(link => link.style.color = "white");
+        }
+    }
+  
+    // Responsive Menu Button Show/Hide
+    window.onload = function () {
+        var menu = document.getElementById("menu-btn");
+        var navbar = document.getElementById("navbar-menu");
+        if (window.innerWidth <= 768) {
+            menu.style.display = "block";
+            navbar.style.display = "none";
+        }
+    };
+    window.onresize = function () {
+        var menu = document.getElementById("menu-btn");
+        var navbar = document.getElementById("navbar-menu");
+        if (window.innerWidth <= 768) {
+            menu.style.display = "block";
+            navbar.style.display = "none";
+        } else {
+            menu.style.display = "none";
+            navbar.style.display = "flex";
+        }
+    };
+  </script>
+    <header id="home">
+        <h1>Enhanced Healthcare Services</h1>
+    </header>
+
+   
+
+    <div class="container">
+        <div class="info-section" id="services">
+            <div class="info-card">
+                <i class="fas fa-user-md"></i>
+                <h3>Experienced Professionals</h3>
+                <p>Our team is here to provide you with expert care.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Anytime Assistance</h3>
+                <p>Get support 24/7 for all your medical needs.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <h3>Contact Us 24/7</h3>
+                <p>We’re always available to address your concerns.</p>
+            </div>
+        </div>
+
+        <div class="response-section" id="responseSection">
+            <div class="response-container">
+                <h2 id="responseTitle">Your Health, Our Priority</h2>
+                <p id="responseText">Response details will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <section class="contact-section" id="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Enhanced Healthcare Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+document.querySelectorAll('.info-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var responseSection = document.getElementById('responseSection');
+                var responseText = document.getElementById('responseText');
+
+                var cardTitle = this.querySelector('h3').textContent;
+
+                var contentMap = {
+                    'Experienced Professionals': `
+1. "Experienced Professionals"  
+This heading introduces the key message about the quality of the medical staff. By calling them "experienced," it assures patients that the team is highly qualified, knowledgeable, and capable of handling a wide range of medical situations.
+It sets the tone for trust and reliability, letting patients know they are in expert hands.
+
+2. "Our dedicated team of doctors and healthcare professionals"
+"Dedicated team" implies that the professionals are committed, passionate, and focused on providing the best care. The word "dedicated" emphasizes their willingness to go above and beyond for patients.
+
+3. "is available 24/7"
+This is a critical point that communicates the accessibility of the medical services.
+"24/7" means that the healthcare team is available at any hour, every day of the week.
+
+4. "ensuring that you receive the highest quality care whenever you need it"
+This part reassures patients that the care they will receive is of the highest quality.
+
+5. "Your health and well-being are our top priority, and we're here to support you every step of the way."
+This closing sentence emphasizes the compassionate and patient-centered approach of the healthcare service.`,
+
+                    'Anytime Assistance': `
+1. "Anytime Assistance"  
+The "Anytime Assistance" service guarantees that support is always available when you need it most. Our team of professionals is available 24/7.
+
+2. "Immediate and Timely Support"
+"Immediate support" means that you can expect a quick response to your request.
+
+3. "Comprehensive Assistance"
+The "Anytime Assistance" team is trained to handle a wide range of situations.
+
+4. "Your Health is Our Priority"
+With Anytime Assistance, your health is always our primary focus.
+
+5. "Reach Us Anytime"
+Whether you need help at 3 AM or on a public holiday, our team is always available.`,
+
+                    'Contact Us 24/7': `
+1. "Contact Us 24/7"  
+The "Contact Us 24/7" service ensures constant access to our team for any medical support.
+
+2. "Reach Us Anytime, Anywhere"
+We understand that medical concerns don't follow a 9 to 5 schedule.
+
+3. "Multiple Communication Channels"
+We provide various ways for you to contact us: phone, email, or our website chat feature.
+
+4. "Expert Advice at Your Fingertips"
+When you contact us, you’ll be connected to a team of experts who can provide guidance.
+
+5. "Your Health, Our Priority"
+By offering 24/7 contact services, we prioritize your health and ensure you're never left without support.`
+                };
+
+                responseText.innerHTML = contentMap[cardTitle] || "Content not found for this section.";
+
+                responseSection.style.display = 'block';
+            });
+        });
+
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/book-appointment', {
+                method: 'POST',
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/contact', {
+                method: 'POST',
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+        });
+        </script>
+</body>
+
+</html>

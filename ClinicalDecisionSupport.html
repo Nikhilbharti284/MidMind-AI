@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediMind AI | Clinical Decision Support</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary-color: #5d8acd;
+            --secondary-color: #1a7bb9;
+            --accent-color: #29b6f6;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        .navbar-toggler {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .navbar-collapse {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            margin-right: 2rem;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Underline animation */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .search-form {
+            display: flex;
+            margin-right: 2rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            width: 200px;
+        }
+
+        .search-button {
+            background-color: var(--secondary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .dropdown {
+            position: relative;
+            margin-right: 2rem;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            list-style: none;
+            width: 200px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--accent-color);
+            color: white;
+            padding-left: 1.2rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .mobile-nav {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav li {
+            margin: 1.5rem 0;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .mobile-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .mobile-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animations for mobile nav items */
+        .mobile-menu.active .mobile-nav li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+        .mobile-menu.active .mobile-nav li:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                display: none;
+            }
+
+            .search-form {
+                margin-right: 1rem;
+            }
+
+            .dropdown {
+                margin-right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-input {
+                width: 150px;
+            }
+        }
+
+        /* 3D Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            transform-style: preserve-3d;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            transform: translateZ(30px);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+            position: relative;
+            transform: translateZ(20px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            transform: translateZ(10px);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .feature-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            transform-style: preserve-3d;
+            transform: translateZ(25px);
+        }
+
+        .feature-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            transform-style: preserve-3d;
+            transform: translateZ(15px);
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateZ(25px);
+        }
+
+        .feature-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* 3D Animation Effects */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateZ(20px);
+            }
+            50% {
+                transform: translateY(-10px) translateZ(30px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                display: none;
+            }
+
+            .search-form {
+                margin-right: 1rem;
+            }
+
+            .dropdown {
+                margin-right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/ChatGPT Image Apr 3, 2025, 06_44_17 PM.png" alt="MediMind AI Logo">
+                MediMind AI
+            </a>
+            
+            <button class="navbar-toggler" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="heart-checkup.html" class="nav-link">Heart Checkup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Covid.html" class="nav-link">Covid-19</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About Us</a>
+                    </li>
+                </ul>
+                
+                <form class="search-form">
+                    <input type="search" class="search-input" placeholder="Search...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                
+                <div class="dropdown">
+                    <button class="dropdown-toggle">Services</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="cancer.html" class="dropdown-item">Cancer Detection</a></li>
+                        <li><a href="diabetes.html" class="dropdown-item">Diabetes Care</a></li>
+                        <li><a href="mental-health.html" class="dropdown-item">Mental Health</a></li>
+                        <li><a href="pediatrics.html" class="dropdown-item">Pediatrics</a></li>
+                    </ul>
+                </div>
+                
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-adjust"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="close-btn" onclick="toggleMobileMenu()">&times;</span>
+        <ul class="mobile-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="heart-checkup.html">Heart Checkup</a></li>
+            <li><a href="Covid.html">Covid-19</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="cancer.html">Cancer Detection</a></li>
+            <li><a href="diabetes.html">Diabetes Care</a></li>
+            <li><a href="mental-health.html">Mental Health</a></li>
+            <li><a href="pediatrics.html">Pediatrics</a></li>
+        </ul>
+    </div>
+
+    <!-- 3D Content -->
+    <div class="container">
+        <header class="page-header floating">
+            <h1>Clinical Decision Support System</h1>
+            <p>Our AI-powered clinical decision support system provides healthcare professionals with intelligent recommendations, risk assessments, and evidence-based guidance at the point of care.</p>
+        </header>
+
+        <section class="card-container">
+            <div class="card">
+                <h2>Diagnostic Assistance</h2>
+                <p>Get AI-powered differential diagnoses based on patient symptoms, medical history, and lab results to support your clinical judgment.</p>
+                <a href="#" class="btn">Try Diagnostic Tool</a>
+            </div>
+            
+            <div class="card">
+                <h2>Treatment Recommendations</h2>
+                <p>Access personalized treatment plans based on the latest clinical guidelines and patient-specific factors.</p>
+                <a href="#" class="btn">View Treatment Options</a>
+            </div>
+            
+            <div class="card">
+                <h2>Drug Interaction Checker</h2>
+                <p>Instantly identify potential drug-drug, drug-food, and drug-allergy interactions for safer prescribing.</p>
+                <a href="#" class="btn">Check Interactions</a>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Real-time Alerts</h3>
+                    <p>Receive instant alerts for critical lab values, potential medication errors, or clinical guideline deviations.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Evidence-Based</h3>
+                    <p>All recommendations are grounded in the latest medical research and clinical guidelines.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Patient-Specific</h3>
+                    <p>Tailored suggestions based on individual patient demographics, comorbidities, and risk factors.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <h3>Seamless Integration</h3>
+                    <p>Works with your existing EHR system to provide context-aware recommendations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Clinical Pathway Support</h2>
+            <p>Our system helps standardize care while allowing for necessary individualization, promoting best practices and reducing unwarranted variation in care delivery.</p>
+            <p>Access step-by-step guidance for complex clinical scenarios, from initial presentation through follow-up care.</p>
+            <a href="#" class="btn">Explore Clinical Pathways</a>
+        </section>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Dark Mode Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-adjust');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-adjust');
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.classList.remove('fa-adjust');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        // 3D Card Effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateZ(30px)`;
+            });
+
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.5s ease';
+                card.style.transform = 'translateZ(20px)';
+            });
+        });
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Dark Mode Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-adjust');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-adjust');
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.classList.remove('fa-adjust');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+    </script>
+</body>
+</html>

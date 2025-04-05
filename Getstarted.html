@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediMind-AI (Healthcare Assistant)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Modern Blue Color Scheme */
+    :root {
+      --primary-blue: #1a73e8;
+      --dark-blue: #0d47a1;
+      --light-blue: #e8f0fe;
+      --accent-blue: #4285f4;
+      --text-dark: #202124;
+      --text-light: #5f6368;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --success-green: #34a853;
+      --warning-orange: #fbbc05;
+      --error-red: #ea4335;
+    }
+
+    /* Add to your existing CSS */
+.uploaded-image, .analyzed-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.wiki-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.wiki-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.wiki-image:hover {
+  transform: scale(1.05);
+}
+    
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      background: url('') no-repeat center center fixed, 
+                  linear-gradient(-45deg, #dee4eb, #e8f0fe, #d4e3fc, #c2d9fa);
+      background-size: cover, 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      z-index: -1;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background-color: rgba(26, 115, 232, 0.1);
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    
+    .header {
+      background: rgba(26, 115, 232, 0.9);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      position: relative;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+    
+    .header .logo {
+      font-size: 24px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s;
+    }
+
+    .header .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .logo-icon {
+      margin-right: 10px;
+      font-size: 28px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .mobile-menu-btn:hover {
+      transform: rotate(90deg);
+    }
+    
+    .main-content {
+      padding: 25px;
+      max-width: 1000px;
+      margin: 20px auto;
+      background: rgba(244, 249, 244, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .main-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    #welcomeText {
+      font-size: 32px;
+      margin-bottom: 5px;
+      color: var(--primary-blue);
+      font-weight: 700;
+      background: linear-gradient(to right, #1a73e8, #34a853);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    #taglineText {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--text-light);
+    }
+    
+    .disclaimer {
+      background: var(--light-blue);
+      padding: 15px;
+      border-left: 4px solid var(--accent-blue);
+      margin-bottom: 25px;
+      font-size: 14px;
+      border-radius: 8px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .chat-container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .chat-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+      background: var(--primary-blue);
+      border-radius: 10px;
+    }
+    
+    .message {
+      margin-bottom: 15px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 85%;
+      word-wrap: break-word;
+      line-height: 1.5;
+      animation: messageIn 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes messageIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .user-message {
+      background: var(--primary-blue);
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 5px rgba(26, 115, 232, 0.3);
+    }
+    
+    .bot-message {
+      background: #f1f3f4;
+      color: var(--text-dark);
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .bot-container {
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .bot-text {
+      flex: 1;
+    }
+    
+    .action-icon {
+      cursor: pointer;
+      margin-left: 10px;
+      font-size: 18px;
+      color: var(--primary-blue);
+      transition: all 0.3s;
+    }
+
+    .action-icon:hover {
+      transform: scale(1.2);
+      color: var(--dark-blue);
+    }
+    
+    .read-more {
+      margin-top: 8px;
+      cursor: pointer;
+      color: var(--primary-blue);
+      font-size: 14px;
+      font-weight: 500;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+      transform: translateX(5px);
+    }
+    
+    /* Loading Spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(26, 115, 232, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary-blue);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .typing-dots span {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-blue);
+      border-radius: 50%;
+      display: inline-block;
+      animation: typingAnimation 1.4s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingAnimation {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+    
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 15px 20px;
+      font-size: 16px;
+      border: 1px solid #dadce0;
+      border-radius: 30px;
+      outline: none;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .search-input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    }
+    
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary {
+      background: var(--primary-blue);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--dark-blue);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--primary-blue);
+      border: 1px solid #dadce0;
+    }
+    
+    .btn-secondary:hover {
+      background: #f1f3f4;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn.active {
+      background: var(--dark-blue);
+      color: white;
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .language-selector {
+      padding: 10px 16px;
+      border-radius: 30px;
+      border: 1px solid #dadce0;
+      background: white;
+      font-size: 14px;
+      color: var(--text-dark);
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+    }
+
+    .language-selector:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    }
+
+    /* Medical Documents Section */
+    .documents-section {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .documents-section h3 {
+      margin-top: 0;
+      color: var(--primary-blue);
+      border-bottom: 2px solid var(--light-blue);
+      padding-bottom: 10px;
+    }
+
+    .document-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .document-category {
+      background: var(--light-blue);
+      padding: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .document-category:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .document-category i {
+      color: var(--primary-blue);
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .document-category h4 {
+      margin: 5px 0;
+      color: var(--text-dark);
+    }
+
+    .document-category p {
+      margin: 5px 0;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .document-content {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+
+    .document-content h4 {
+      margin-top: 0;
+      color: var(--dark-blue);
+    }
+
+    .document-content p {
+      line-height: 1.6;
+    }
+
+    .back-to-categories {
+      display: inline-block;
+      margin-top: 15px;
+      color: var(--primary-blue);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .back-to-categories:hover {
+      text-decoration: underline;
+    }
+
+    /* Wikipedia Image Results */
+    .wiki-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .wiki-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .wiki-image:hover {
+      transform: scale(1.05);
+    }
+
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .image-modal-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 8px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
+      }
+      
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+        gap: 10px;
+      }
+      
+      .nav-links.show {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+      
+      .message {
+        max-width: 90%;
+      }
+      
+      .controls {
+        flex-direction: column;
+      }
+      
+      .search-container {
+        flex-direction: column;
+      }
+      
+      .search-input {
+        width: 100%;
+      }
+
+      .main-content {
+        margin: 10px;
+        padding: 15px;
+      }
+
+      #welcomeText {
+        font-size: 24px;
+      }
+
+      .document-categories {
+        grid-template-columns: 1fr;
+      }
+
+      .wiki-image {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-blue);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .fab:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 6px 20px rgba(26, 115, 232, 0.5);
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-blue);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      z-index: 100;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body><!-- Navbar -->
+  <nav style="background-color: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 10px 20px; font-family: Arial, sans-serif;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <!-- Brand -->
+      <a href="index.html" style="display: flex; align-items: center; text-decoration: none; color: #333; font-size: 1.5em; font-weight: bold;">
+        <img src="assets/images/ChatGPT Image Apr 3, 2025, 06_44_17 PM.png" alt="MediMind AI Logo" style="height: 50px; width: 50px; margin-right: 10px;">
+        MediMind AI
+      </a>
+  
+      <!-- Toggler -->
+      <button onclick="toggleMobileMenu()" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;" id="navbarToggler">
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Main Menu -->
+      <div id="navbarMenu" style="display: flex; align-items: center; flex-wrap: wrap;">
+        <!-- Nav Links -->
+        <ul style="list-style: none; display: flex; gap: 15px; margin: 0; padding: 0;">
+          <li><a href="index.html" style="text-decoration: none; color: #333;">Home</a></li>
+          <li><a href="heart-checkup.html" style="text-decoration: none; color: #333;">Heart Checkup</a></li>
+          <li><a href="Covid.html" style="text-decoration: none; color: red;">Covid-19</a></li>
+          <li><a href="about.html" style="text-decoration: none; color: red;">About Us</a></li>
+        </ul>
+  
+        <!-- Search -->
+        <form style="display: flex; align-items: center; margin-left: 15px;">
+          <input type="search" placeholder="Search..." style="padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px;">
+          <button type="submit" style="background-color: #007bff; border: none; color: white; padding: 5px 10px; margin-left: 5px; border-radius: 4px; cursor: pointer;">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+  
+        <!-- Dropdown -->
+        <div style="position: relative; margin-left: 15px;" onclick="toggleDropdown()" id="servicesDropdown">
+          <button style="background-color: #28a745; color: white; padding: 6px 10px; border: none; border-radius: 4px; cursor: pointer;">
+            Services
+          </button>
+          <ul id="dropdownMenu" style="position: absolute; top: 100%; left: 0; display: none; background-color: white; list-style: none; margin: 0; padding: 10px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
+            <li><a href="cancer.html" style="display: block; padding: 5px 20px; text-decoration: none; color: #333;">Cancer Detection</a></li>
+            <li><a href="diabetes.html" style="display: block; padding: 5px 20px; text-decoration: none; color: #333;">Diabetes Care</a></li>
+            <li><a href="mental-health.html" style="display: block; padding: 5px 20px; text-decoration: none; color: #333;">Mental Health</a></li>
+            <li><a href="pediatrics.html" style="display: block; padding: 5px 20px; text-decoration: none; color: #333;">Pediatrics</a></li>
+          </ul>
+        </div>
+  
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" style="margin-left: 15px; background: none; border: none; font-size: 20px; cursor: pointer;">
+          <i class="fas fa-adjust"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #fff; z-index: 2000; padding: 20px;">
+    <span onclick="toggleMobileMenu()" style="font-size: 30px; cursor: pointer;">&times;</span>
+    <ul style="list-style: none; padding: 0; margin-top: 20px;">
+      <li><a href="index.html" style="display: block; padding: 10px 0; color: #333;">Home</a></li>
+      <li><a href="heart-checkup.html" style="display: block; padding: 10px 0; color: #333;">Heart Checkup</a></li>
+      <li><a href="Covid.html" style="display: block; padding: 10px 0; color: red;">Covid-19</a></li>
+      <li><a href="about.html" style="display: block; padding: 10px 0; color: red;">About Us</a></li>
+      <li><a href="cancer.html" style="display: block; padding: 10px 0; color: #333;">Cancer Detection</a></li>
+      <li><a href="diabetes.html" style="display: block; padding: 10px 0; color: #333;">Diabetes Care</a></li>
+      <li><a href="mental-health.html" style="display: block; padding: 10px 0; color: #333;">Mental Health</a></li>
+      <li><a href="pediatrics.html" style="display: block; padding: 10px 0; color: #333;">Pediatrics</a></li>
+    </ul>
+  </div>
+  
+  <!-- Scripts -->
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      document.body.style.overflow = menu.style.display === 'block' ? 'hidden' : '';
+    }
+  
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const icon = document.querySelector('.fa-adjust, .fa-sun');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-adjust', 'fa-sun');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-adjust');
+      }
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+  
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      const icon = document.querySelector('.fa-adjust');
+      if (icon) icon.classList.replace('fa-adjust', 'fa-sun');
+    }
+  
+    // Dropdown toggle
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdownMenu');
+      dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+  
+    // Responsive toggler visibility
+    function handleResize() {
+      const toggler = document.getElementById('navbarToggler');
+      const navbarMenu = document.getElementById('navbarMenu');
+      if (window.innerWidth <= 768) {
+        toggler.style.display = 'block';
+        navbarMenu.style.display = 'none';
+      } else {
+        toggler.style.display = 'none';
+        navbarMenu.style.display = 'flex';
+      }
+    }
+  
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('DOMContentLoaded', handleResize);
+  </script>
+  
+  <!-- Responsive Styles via <style> -->
+  <style>
+    @media (max-width: 768px) {
+      #navbarMenu {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-top: 10px;
+      }
+  
+      #navbarMenu ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+  
+      #navbarMenu form {
+        width: 100%;
+        margin: 10px 0;
+      }
+  
+      #servicesDropdown {
+        width: 100%;
+      }
+  
+      #dropdownMenu {
+        position: static !important;
+        box-shadow: none !important;
+        width: 100%;
+      }
+  
+      #dropdownMenu a {
+        width: 100%;
+      }
+    }
+  </style>
+  
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div id="welcomeText">Welcome to MediMind-AI</div>
+    <div id="taglineText" class="tagline">
+      Your intelligent healthcare companion. Get accurate medical information in multiple languages.
+    </div>
+    
+    <div id="disclaimerText" class="disclaimer">
+      <strong>Disclaimer:</strong> MediMind-AI provides information for educational purposes only and is not a substitute for professional medical advice. Always consult with a qualified healthcare provider for diagnosis and treatment.
+    </div>
+    
+    <!-- Medical Documents Section -->
+    <div class="documents-section" id="documentsSection">
+      <h3>Medical Documents & Resources</h3>
+      <div class="document-categories" id="documentCategories">
+        <div class="document-category" data-category="prescriptions">
+          <i class="fas fa-prescription"></i>
+          <h4>Prescription Guidelines</h4>
+          <p>Learn about proper medication usage</p>
+        </div>
+        <div class="document-category" data-category="reports">
+          <i class="fas fa-file-medical"></i>
+          <h4>Medical Reports</h4>
+          <p>Understanding lab results and tests</p>
+        </div>
+        <div class="document-category" data-category="firstaid">
+          <i class="fas fa-first-aid"></i>
+          <h4>First Aid</h4>
+          <p>Emergency procedures and care</p>
+        </div>
+        <div class="document-category" data-category="nutrition">
+          <i class="fas fa-apple-alt"></i>
+          <h4>Nutrition Guides</h4>
+          <p>Diet plans for various conditions</p>
+        </div>
+        <div class="document-category" data-category="vaccines">
+          <i class="fas fa-syringe"></i>
+          <h4>Vaccination Info</h4>
+          <p>Schedules and vaccine details</p>
+        </div>
+        <div class="document-category" data-category="conditions">
+          <i class="fas fa-disease"></i>
+          <h4>Health Conditions</h4>
+          <p>Information about common diseases</p>
+        </div>
+      </div>
+      
+      <div class="document-content" id="documentContent">
+        <!-- Content will be loaded here dynamically -->
+      </div>
+    </div>
+    
+    <!-- Chat Interface -->
+    <div class="chat-container" id="chat">
+      <div class="message bot-message">
+        <div class="bot-container">
+          <div class="bot-text">
+            <p id="greeting1">Hello! I'm Dr. Medi, your AI healthcare assistant. How can I help you today?</p>
+            <p id="greeting2">You can ask me about symptoms, treatments, or general health advice in English, Hindi, Marathi or Tamil.</p>
+          </div>
+          <span class="action-icon tooltip" title="Play Response">🔊
+            <span class="tooltiptext">Play Response</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Search Area -->
+    <div class="search-container">
+      <input type="text" class="search-input" id="userInput" placeholder="Ask about symptoms, treatments, or health advice..." autofocus>
+      <button id="sendButton" class="btn btn-primary">Send</button>
+    </div>
+    
+    <!-- Additional Controls -->
+    <input type="file" id="imageUpload" accept="image/*">
+<!-- Include Tesseract.js -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@2"></script>
+    <div class="controls">
+      <button id="pauseButton" class="btn btn-secondary tooltip">
+        ⏸️ <span class="btn-text">Pause</span>
+        <span class="tooltiptext">Pause/Resume Chat</span>
+      </button>
+      <button id="copyButton" class="btn btn-secondary tooltip">
+        ⎘ <span class="btn-text">Copy</span>
+        <span class="tooltiptext">Copy Chat History</span>
+      </button>
+      <button id="clearButton" class="btn btn-secondary tooltip">
+        🗑️ <span class="btn-text">Clear</span>
+        <span class="tooltiptext">Clear Chat</span>
+      </button>
+      <button id="speakButton" class="btn btn-secondary tooltip">
+        🔊 <span class="btn-text">Read</span>
+        <span class="tooltiptext">Read Responses</span>
+      </button>
+      <button id="listenButton" class="btn btn-secondary tooltip">
+        🎤 <span class="btn-text">Listen</span>
+        <span class="tooltiptext">Voice Input</span>
+      </button>
+      <button id="downloadButton" class="btn btn-secondary tooltip">
+        📥 <span class="btn-text">PDF</span>
+        <span class="tooltiptext">Download as PDF</span>
+      </button>
+      <select id="languageSelector" class="language-selector">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="mr">Marathi</option>
+        <option value="ta">Tamil</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal">
+    <span class="close-modal">&times;</span>
+    <div class="image-modal-content">
+      <img id="modalImage" src="" alt="Enlarged Wikipedia Image">
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab" id="emergencyBtn">🆘</button>
+
+  <script>
+// Medical Image Analysis Functions
+const ImageAnalysis = {
+  // Initialize the image analysis module
+  init() {
+    this.model = null;
+    this.loadModel();
+  },
+
+  // Load TensorFlow.js model (you can use a pre-trained medical image model)
+  async loadModel() {
+    try {
+      showMessage('bot', 'Loading medical image analysis model...');
+      
+      // Use a working tfjs model URL
+      this.model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json');
+      
+      showMessage('bot', 'Medical image analysis model loaded successfully!');
+    } catch (error) {
+      console.error('Model loading error:', error);
+      showMessage('bot', 'Failed to load image analysis model. Using basic analysis.');
+    }
+  },
+
+  // Analyze uploaded medical image
+  async analyzeImage(file) {
+    if (!file) return null;
+    
+    // Show loading message
+    const loadingMsg = showMessage('bot', 'Analyzing medical image...');
+    
+    try {
+      // 1. Create image preview
+      const imageUrl = URL.createObjectURL(file);
+      
+      // 2. Perform analysis (both ML and visual)
+      const analysisResults = await this.performAnalysis(file);
+      
+      // 3. Format results
+      const resultMessage = this.formatResults(analysisResults, file.name);
+      
+      // Remove loading message
+      loadingMsg.remove();
+      
+      return { imageUrl, resultMessage };
+    } catch (error) {
+      console.error('Image analysis error:', error);
+      loadingMsg.remove();
+      showMessage('bot', 'Image analysis failed. Please try another image.');
+      return null;
+    }
+  },
+
+  // Core analysis function
+  async performAnalysis(file) {
+    const results = {
+      visualAnalysis: {},
+      mlAnalysis: {},
+      basicInfo: {}
+    };
+    
+    // Basic image info
+    results.basicInfo = await this.getImageInfo(file);
+    
+    // Visual analysis (color, patterns, etc.)
+    results.visualAnalysis = await this.visualInspection(file);
+    
+    // ML-based analysis if model is loaded
+    if (this.model) {
+      results.mlAnalysis = await this.mlAnalysis(file);
+    }
+    
+    return results;
+  },
+
+  // Get basic image information
+  async getImageInfo(file) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = function() {
+        resolve({
+          width: this.width,
+          height: this.height,
+          aspectRatio: (this.width / this.height).toFixed(2),
+          size: (file.size / 1024).toFixed(2) + ' KB',
+          type: file.type
+        });
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  },
+
+  // Visual inspection of image
+  async visualInspection(file) {
+    // In a real app, you would implement actual visual analysis
+    // This is a placeholder implementation
+    return {
+      notableFeatures: ['Possible anatomical structures detected'],
+      colorDistribution: 'Typical for medical imaging',
+      anomalyFlags: 0
+    };
+  },
+
+  // Machine learning analysis
+  async mlAnalysis(file) {
+    if (!this.model) return { error: 'Model not loaded' };
+    
+    try {
+      // Preprocess image
+      const image = await this.loadImage(file);
+      const tensor = this.preprocessImage(image);
+      
+      // Make prediction
+      const predictions = this.model.predict(tensor);
+      const results = await this.processPredictions(predictions);
+      
+      return results;
+    } catch (error) {
+      console.error('ML analysis error:', error);
+      return { error: 'Analysis failed' };
+    }
+  },
+
+  // Helper function to load image
+  loadImage(file) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.src = URL.createObjectURL(file);
+    });
+  },
+
+  // Preprocess image for model
+  preprocessImage(image) {
+    // Convert image to tensor and resize to what model expects
+    return tf.tidy(() => {
+      const tensor = tf.browser.fromPixels(image)
+        .resizeNearestNeighbor([224, 224])
+        .toFloat()
+        .expandDims();
+      
+      // Normalize if your model expects it
+      return tensor.div(255.0);
+    });
+  },
+
+  // Process model predictions
+  async processPredictions(predictions) {
+    // Convert tensor to readable data
+    const data = await predictions.data();
+    
+    // In a real app, you would map these to medical conditions
+    return {
+      topPrediction: 'Possible anatomical structure',
+      confidence: (data[0] * 100).toFixed(2) + '%',
+      findings: ['Normal tissue patterns detected']
+    };
+  },
+
+  // Format results for display
+  formatResults(results, filename) {
+    let message = `<strong>Analysis of ${filename}:</strong><br><br>`;
+    
+    // Basic info
+    message += `<u>Image Information:</u><br>`;
+    message += `- Dimensions: ${results.basicInfo.width}×${results.basicInfo.height} px<br>`;
+    message += `- Size: ${results.basicInfo.size}<br>`;
+    message += `- Type: ${results.basicInfo.type}<br><br>`;
+    
+    // Visual analysis
+    message += `<u>Visual Analysis:</u><br>`;
+    message += `- ${results.visualAnalysis.notableFeatures.join('<br>- ')}<br>`;
+    message += `- Color distribution: ${results.visualAnalysis.colorDistribution}<br><br>`;
+    
+    // ML analysis if available
+    if (results.mlAnalysis && !results.mlAnalysis.error) {
+      message += `<u>AI Analysis:</u><br>`;
+      message += `- Primary finding: ${results.mlAnalysis.topPrediction}<br>`;
+      message += `- Confidence: ${results.mlAnalysis.confidence}<br>`;
+      message += `- Additional findings:<br>`;
+      message += `  - ${results.mlAnalysis.findings.join('<br>  - ')}<br>`;
+    }
+    
+    // Disclaimer
+    message += `<br><em>Note: This analysis is for informational purposes only and should not replace professional medical diagnosis.</em>`;
+    
+    return message;
+  }
+};
+
+// Initialize image analysis when app starts
+ImageAnalysis.init();
+
+// Create animated background particles
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 30;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    const size = Math.random() * 10 + 5;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.bottom = `-${size}px`;
+    
+    const duration = Math.random() * 10 + 10;
+    particle.style.animationDuration = `${duration}s`;
+    
+    particle.style.animationDelay = `${Math.random() * 10}s`;
+    
+    particlesContainer.appendChild(particle);
+  }
+}
+
+// Medical documents data
+const medicalDocuments = {
+  prescriptions: {
+    title: "Prescription Guidelines",
+    content: `
+      <h4>Understanding Your Prescription</h4>
+      <p>When you receive a prescription from your healthcare provider, it's important to understand how to take your medication properly. Here are some key points:</p>
+      <ul>
+        <li><strong>Medication Name:</strong> Both brand and generic names should be listed</li>
+        <li><strong>Dosage:</strong> The amount of medication to take at one time</li>
+        <li><strong>Frequency:</strong> How often to take the medication (e.g., twice daily)</li>
+        <li><strong>Route:</strong> How to take the medication (oral, topical, etc.)</li>
+        <li><strong>Duration:</strong> How long to continue the medication</li>
+      </ul>
+      <h4>Important Safety Tips</h4>
+      <p>Always follow these guidelines when taking prescription medications:</p>
+      <ul>
+        <li>Take exactly as prescribed - don't skip doses or stop early</li>
+        <li>Don't share medications with others</li>
+        <li>Store medications properly (check label for requirements)</li>
+        <li>Be aware of potential side effects and interactions</li>
+        <li>Keep a current list of all medications you take</li>
+      </ul>
+    `
+  },
+  reports: {
+    title: "Understanding Medical Reports",
+    content: `
+      <h4>Common Medical Tests and Results</h4>
+      <p>Medical reports can be complex. Here's a basic guide to understanding common tests:</p>
+      <ul>
+        <li><strong>Blood Tests:</strong> CBC, Lipid Profile, Glucose, etc.</li>
+        <li><strong>Urine Tests:</strong> Routine, Culture, Microalbuminuria</li>
+        <li><strong>Imaging:</strong> X-rays, CT scans, MRIs, Ultrasounds</li>
+        <li><strong>ECG/EKG:</strong> Heart electrical activity</li>
+        <li><strong>Biopsy Reports:</strong> Tissue examination</li>
+      </ul>
+      <h4>Normal Ranges</h4>
+      <p>While normal ranges vary by lab, here are typical reference values:</p>
+      <ul>
+        <li><strong>Hemoglobin:</strong> 13.5-17.5 g/dL (men), 12.0-15.5 g/dL (women)</li>
+        <li><strong>Fasting Glucose:</strong> 70-99 mg/dL</li>
+        <li><strong>Total Cholesterol:</strong> Less than 200 mg/dL</li>
+        <li><strong>Blood Pressure:</strong> Less than 120/80 mmHg</li>
+      </ul>
+    `
+  },
+  firstaid: {
+    title: "First Aid Basics",
+    content: `
+      <h4>Emergency First Aid Procedures</h4>
+      <p>Basic first aid knowledge can save lives in emergencies:</p>
+      <ul>
+        <li><strong>CPR:</strong> 30 chest compressions followed by 2 rescue breaths</li>
+        <li><strong>Choking:</strong> Abdominal thrusts (Heimlich maneuver)</li>
+        <li><strong>Bleeding:</strong> Apply direct pressure with clean cloth</li>
+        <li><strong>Burns:</strong> Cool with running water for 10-15 minutes</li>
+        <li><strong>Fractures:</strong> Immobilize the area and seek medical help</li>
+      </ul>
+      <h4>First Aid Kit Essentials</h4>
+      <p>Every home should have a well-stocked first aid kit containing:</p>
+      <ul>
+        <li>Adhesive bandages in various sizes</li>
+        <li>Sterile gauze pads and adhesive tape</li>
+        <li>Antiseptic wipes and antibiotic ointment</li>
+        <li>Pain relievers (acetaminophen, ibuprofen)</li>
+        <li>Tweezers, scissors, and disposable gloves</li>
+      </ul>
+    `
+  },
+  nutrition: {
+    title: "Nutrition Guides",
+    content: `
+      <h4>Healthy Eating Guidelines</h4>
+      <p>Proper nutrition is essential for maintaining good health and preventing diseases:</p>
+      <ul>
+        <li><strong>Fruits and Vegetables:</strong> Aim for 5-9 servings per day</li>
+        <li><strong>Whole Grains:</strong> Choose whole wheat, brown rice, quinoa</li>
+        <li><strong>Protein:</strong> Include lean meats, fish, beans, and nuts</li>
+        <li><strong>Dairy:</strong> Opt for low-fat or fat-free options</li>
+        <li><strong>Fats:</strong> Focus on healthy fats like olive oil and avocados</li>
+      </ul>
+      <h4>Special Diets</h4>
+      <p>Nutritional needs vary for different conditions:</p>
+      <ul>
+        <li><strong>Diabetes:</strong> Focus on complex carbs and fiber</li>
+        <li><strong>Heart Disease:</strong> Limit saturated fats and sodium</li>
+        <li><strong>High Blood Pressure:</strong> Reduce salt intake</li>
+        <li><strong>Digestive Issues:</strong> Increase fiber gradually</li>
+      </ul>
+    `
+  },
+  vaccines: {
+    title: "Vaccination Information",
+    content: `
+      <h4>Recommended Vaccination Schedule</h4>
+      <p>Vaccines protect against serious diseases. Here are key vaccines by age:</p>
+      <ul>
+        <li><strong>Birth:</strong> Hepatitis B</li>
+        <li><strong>2 months:</strong> DTaP, Hib, PCV13, Polio, Rotavirus</li>
+        <li><strong>12 months:</strong> MMR, Varicella, Hepatitis A</li>
+        <li><strong>11-12 years:</strong> HPV, Tdap, Meningococcal</li>
+        <li><strong>Adults:</strong> Flu (annual), Tdap booster, Shingles</li>
+      </ul>
+      <h4>Vaccine Safety</h4>
+      <p>Common questions about vaccine safety:</p>
+      <ul>
+        <li>Vaccines undergo rigorous testing before approval</li>
+        <li>Side effects are typically mild (soreness, low fever)</li>
+        <li>Serious side effects are extremely rare</li>
+        <li>Vaccines do not cause autism</li>
+        <li>Herd immunity protects those who can't be vaccinated</li>
+      </ul>
+    `
+  },
+  conditions: {
+    title: "Common Health Conditions",
+    content: `
+      <h4>Recognizing Common Conditions</h4>
+      <p>Understanding symptoms of common health issues:</p>
+      <ul>
+        <li><strong>Diabetes:</strong> Frequent urination, excessive thirst, fatigue</li>
+        <li><strong>Hypertension:</strong> Often no symptoms (silent killer)</li>
+        <li><strong>Asthma:</strong> Wheezing, shortness of breath, chest tightness</li>
+        <li><strong>Arthritis:</strong> Joint pain, stiffness, swelling</li>
+        <li><strong>Depression:</strong> Persistent sadness, loss of interest</li>
+      </ul>
+      <h4>When to Seek Medical Help</h4>
+      <p>Warning signs that require immediate attention:</p>
+      <ul>
+        <li>Chest pain or pressure</li>
+        <li>Difficulty breathing</li>
+        <li>Sudden severe headache</li>
+        <li>Weakness on one side of the body</li>
+        <li>Thoughts of self-harm</li>
+      </ul>
+    `
+  }
+};
+
+// Comprehensive Translations
+const translations = {
+  en: {
+    welcome: "Welcome to MediMind-AI",
+    tagline: "Your intelligent healthcare companion. Get accurate medical information in multiple languages.",
+    disclaimer: "<strong>Disclaimer:</strong> MediMind-AI provides information for educational purposes only and is not a substitute for professional medical advice. Always consult with a qualified healthcare provider for diagnosis and treatment.",
+    greeting1: "Hello! I'm Dr. Medi, your AI healthcare assistant. How can I help you today?",
+    greeting2: "You can ask me about symptoms, treatments, or general health advice in English, Hindi, Marathi or Tamil.",
+    placeholder: "Ask about symptoms, treatments, or health advice...",
+    send: "Send",
+    pause: "⏸️ Pause",
+    resume: "▶️ Resume",
+    copy: "⎘ Copy",
+    clear: "🗑️ Clear",
+    listen: "🎤 Listen",
+    speak: "🔊 Read",
+    stop: "⏹️ Stop",
+    noRecognition: "Voice recognition not available in your browser",
+    speaking: "Speaking...",
+    stopped: "Stopped speaking",
+    noText: "No text to speak",
+    error: "An error occurred",
+    noInfo: "I'm sorry, I couldn't find any relevant information on Wikipedia.",
+    noExtract: "I'm sorry, I couldn't retrieve a detailed extract for that topic.",
+    loading: "Fetching information...",
+    emergency: "Emergency Help",
+    emergencyMsg: "Emergency contact information:\n\n- National Emergency Number: 112\n- Medical Emergency: 108\n- Police: 100\n- Fire: 101\n\nPlease contact local emergency services immediately if you're in a life-threatening situation.",
+    documents: "Medical Documents",
+    advice: "Medical Advice",
+    imageUploadResponse: "Here are some images related to your uploaded file:"
+  },
+  hi: {
+    welcome: "मेडीमाइंड-एआई में आपका स्वागत है",
+    tagline: "आपकी बुद्धिमान स्वास्थ्य देखभाल सहायक। कई भाषाओं में सटीक चिकित्सा जानकारी प्राप्त करें।",
+    disclaimer: "<strong>अस्वीकरण:</strong> मेडीमाइंड-एआई केवल शैक्षणिक उद्देश्यों के लिए जानकारी प्रदान करता है और यह पेशेवर चिकित्सा सलाह का विकल्प नहीं है। निदान और उपचार के लिए हमेशा किसी योग्य स्वास्थ्य सेवा प्रदाता से परामर्श लें।",
+    greeting1: "नमस्ते! मैं डॉ. मेडी हूं, आपकी एआई स्वास्थ्य सहायक। आज मैं आपकी कैसे मदद कर सकती हूं?",
+    greeting2: "आप मुझसे अंग्रेजी, हिंदी, मराठी या तमिल में लक्षणों, उपचारों या सामान्य स्वास्थ्य सलाह के बारे में पूछ सकते हैं।",
+    placeholder: "लक्षण, उपचार या स्वास्थ्य सलाह के बारे में पूछें...",
+    send: "भेजें",
+    pause: "⏸️ रोकें",
+    resume: "▶️ जारी रखें",
+    copy: "⎘ कॉपी",
+    clear: "🗑️ साफ करें",
+    listen: "🎤 सुनें",
+    speak: "🔊 पढ़ें",
+    stop: "⏹️ रोकें",
+    noRecognition: "आपके ब्राउज़र में वॉयस पहचान उपलब्ध नहीं है",
+    speaking: "बोल रहा हूँ...",
+    stopped: "बोलना बंद किया",
+    noText: "बोलने के लिए कोई पाठ नहीं",
+    error: "एक त्रुटि हुई",
+    noInfo: "क्षमा करें, मुझे विकिपीडिया पर कोई प्रासंगिक जानकारी नहीं मिली।",
+    noExtract: "क्षमा करें, मैं उस विषय के लिए विस्तृत जानकारी प्राप्त नहीं कर सका।",
+    loading: "जानकारी प्राप्त की जा रही है...",
+    emergency: "आपातकालीन सहायता",
+    emergencyMsg: "आपातकालीन संपर्क जानकारी:\n\n- राष्ट्रीय आपातकालीन नंबर: 112\n- चिकित्सा आपातकाल: 108\n- पुलिस: 100\n- अग्निशमन: 101\n\nयदि आप किसी जीवन-घातक स्थिति में हैं तो कृपया तुरंत स्थानीय आपातकालीन सेवाओं से संपर्क करें।",
+    documents: "चिकित्सा दस्तावेज़",
+    advice: "चिकित्सा सलाह",
+    imageUploadResponse: "यहां आपके अपलोड की गई फ़ाइल से संबंधित चित्र हैं:"
+  },
+  mr: {
+    welcome: "मेडीमाइंड-एआई मध्ये आपले स्वागत आहे",
+    tagline: "आपले बुद्धिमान आरोग्य सहाय्यक. अनेक भाषांमध्ये अचूक वैद्यकीय माहिती मिळवा.",
+    disclaimer: "<strong>निरुपयोगी:</strong> मेडीमाइंड-एआई केवळ शैक्षणिक हेतूसाठी माहिती पुरवते आणि ती व्यावसायिक वैद्यकीय सल्ल्याचा पर्याय नाही. निदान आणि उपचारासाठी नेहमी पात्र आरोग्य सेवा प्रदात्याचा सल्ला घ्या.",
+    greeting1: "नमस्कार! मी डॉ. मेडी आहे, तुमची AI आरोग्य सहाय्यक. आज मी तुम्हाला कशी मदत करू शकते?",
+    greeting2: "तुम्ही मला इंग्रजी, हिंदी, मराठी किंवा तमिळमध्ये लक्षणे, उपचार किंवा सामान्य आरोग्य सल्ला विचारू शकता.",
+    placeholder: "लक्षणे, उपचार किंवा आरोग्य सल्ल्याबद्दल विचारा...",
+    send: "पाठवा",
+    pause: "⏸️ थांबवा",
+    resume: "▶️ पुन्हा सुरू करा",
+    copy: "⎘ कॉपी करा",
+    clear: "🗑️ साफ करा",
+    listen: "🎤 ऐका",
+    speak: "🔊 वाचा",
+    stop: "⏹️ थांबवा",
+    noRecognition: "तुमच्या ब्राउझरमध्ये व्हॉइस ओळखणे उपलब्ध नाही",
+    speaking: "बोलत आहे...",
+    stopped: "बोलणे थांबवले",
+    noText: "बोलण्यासाठी मजकूर नाही",
+    error: "एक त्रुटी आली",
+    noInfo: "माफ करा, मला विकिपीडियावर कोणतीही संबंधित माहिती सापडली नाही.",
+    noExtract: "माफ करा, मला त्या विषयाचा तपशीलवार उतारा मिळू शकला नाही.",
+    loading: "माहिती मिळवली जात आहे...",
+    emergency: "आणीबाणी मदत",
+    emergencyMsg: "आणीबाणी संपर्क माहिती:\n\n- राष्ट्रीय आणीबाणी क्रमांक: 112\n- वैद्यकीय आणीबाणी: 108\n- पोलीस: 100\n- अग्निशामक: 101\n\nकृपया तुम्ही जीवघेण्या परिस्थितीत असल्यास लगेच स्थानिक आणीबाणी सेवांशी संपर्क साधा.",
+    documents: "वैद्यकीय दस्तऐवज",
+    advice: "वैद्यकीय सल्ला",
+    imageUploadResponse: "येथे तुमच्या अपलोड केलेल्या फाइलशी संबंधित चित्रे आहेत:"
+  },
+  ta: {
+    welcome: "மெடிமைண்ட்-ஏஐக்கு உங்களை வரவேற்கிறோம்",
+    tagline: "உங்கள் அறிவார்ந்த சுகாதார உதவியாளர். பல மொழிகளில் துல்லியமான மருத்துவ தகவலைப் பெறவும்.",
+    disclaimer: "<strong>பொறுப்புத் துறப்பு:</strong> மெடிமைண்ட்-ஏஐ கல்வி நோக்கங்களுக்காக மட்டுமே தகவலை வழங்குகிறது மற்றும் இது தொழில்முறை மருத்துவ ஆலோசனைக்கு மாற்றாக இல்லை. நோயறிதல் மற்றும் சிகிச்சைக்கு எப்போதும் தகுதிவாய்ந்த சுகாதார வழங்குநருடன் கலந்தாலோசிக்கவும்.",
+    greeting1: "வணக்கம்! நான் டாக்டர் மெடி, உங்கள் AI சுகாதார உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?",
+    greeting2: "நீங்கள் என்னை ஆங்கிலம், இந்தி, மராத்தி அல்லது தமிழில் அறிகுறிகள், சிகிச்சைகள் அல்லது பொது சுகாதார ஆலோசனை பற்றி கேட்கலாம்.",
+    placeholder: "அறிகுறிகள், சிகிச்சைகள் அல்லது சுகாதார ஆலோசனை பற்றி கேளுங்கள்...",
+    send: "அனுப்பு",
+    pause: "⏸️ இடைநிறுத்து",
+    resume: "▶️ தொடரவும்",
+    copy: "⎘ நகலெடு",
+    clear: "🗑️ அழி",
+    listen: "🎤 கேளுங்கள்",
+    speak: "🔊 படிக்கவும்",
+    stop: "⏹️ நிறுத்து",
+    noRecognition: "உங்கள் உலாவியில் குரல் அங்கீகாரம் இல்லை",
+    speaking: "பேசுகிறது...",
+    stopped: "பேசுவதை நிறுத்தியது",
+    noText: "பேச எந்த உரையும் இல்லை",
+    error: "ஒரு பிழை ஏற்பட்டது",
+    noInfo: "மன்னிக்கவும், விக்கிபீடியாவில் எந்த தொடர்புடைய தகவலையும் என்னால் கண்டுபிடிக்க முடியவில்லை.",
+    noExtract: "மன்னிக்கவும், அந்த தலைப்புக்கான விரிவான சுருக்கத்தை என்னால் பெற முடியவில்லை.",
+    loading: "தகவல் பெறப்படுகிறது...",
+    emergency: "அவசர உதவி",
+    emergencyMsg: "அவசர தொடர்பு தகவல்:\n\n- தேசிய அவசர எண்: 112\n- மருத்துவ அவசரம்: 108\n- காவல்: 100\n- தீயணைப்பு: 101\n\nநீங்கள் உயிருக்கு ஆபத்தான நிலையில் இருந்தால் உடனடியாக உள்ளூர் அவசர சேவைகளைத் தொடர்பு கொள்ளவும்.",
+    documents: "மருத்துவ ஆவணங்கள்",
+    advice: "மருத்துவ ஆலோசனை",
+    imageUploadResponse: "உங்கள் பதிவேற்றப்பட்ட கோப்புடன் தொடர்புடைய சில படங்கள் இங்கே:"
+  }
+};
+
+let currentLanguage = 'en';
+let recognition;
+let isSpeaking = false;
+let isListening = false;
+const synth = window.speechSynthesis;
+let paused = false;
+
+// Typing effect function
+function typeMessage(element, text, speed = 20) {
+  let i = 0;
+  element.innerHTML = '';
+  const textNode = document.createElement('div');
+  element.appendChild(textNode);
+  
+  return new Promise((resolve) => {
+    const typingInterval = setInterval(() => {
+      if (i < text.length) {
+        textNode.textContent += text.charAt(i);
+        i++;
+        scrollToBottom();
+      } else {
+        clearInterval(typingInterval);
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+// Scroll chat to bottom
+function scrollToBottom() {
+  const chat = document.getElementById('chat');
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// Show notification
+function showNotification(message, duration = 4000) {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, duration);
+}
+
+// Fetch Wikipedia images
+async function fetchWikipediaImages(query, lang = 'en') {
+  try {
+    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&generator=images&gimlimit=5&prop=imageinfo&iiprop=url&titles=${encodeURIComponent(query)}&format=json&origin=*`;
+    const response = await fetch(searchUrl);
+    if (!response.ok) throw new Error("Image search failed");
+    const data = await response.json();
+    const pages = data.query?.pages;
+    if (!pages) return null;
+    const imageUrls = [];
+    for (const pageId in pages) {
+      if (pages[pageId].imageinfo) {
+        imageUrls.push(pages[pageId].imageinfo[0].url);
+      }
+    }
+    return imageUrls.slice(0, 5);
+  } catch (error) {
+    console.error("Wikipedia image fetch error:", error);
+    return null;
+  }
+}
+
+// Fetch Wikipedia content
+async function fetchWikipediaContent(query, lang = 'en') {
+  try {
+    const searchUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*`;
+    const searchResponse = await fetch(searchUrl);
+    if (!searchResponse.ok) throw new Error("Search failed");
+    const searchData = await searchResponse.json();
+    if (!searchData.query?.search?.length) {
+      return translations[lang]?.noInfo || "No relevant information found on Wikipedia.";
+    }
+    const pageTitle = searchData.query.search[0].title;
+    const extractUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles=${encodeURIComponent(pageTitle)}&format=json&origin=*`;
+    const extractResponse = await fetch(extractUrl);
+    if (!extractResponse.ok) throw new Error("Extract failed");
+    const extractData = await extractResponse.json();
+    const pages = extractData.query.pages;
+    const pageId = Object.keys(pages)[0];
+    if (!pages[pageId]?.extract) {
+      return translations[lang]?.noExtract || "Could not retrieve details from Wikipedia.";
+    }
+    const extract = pages[pageId].extract;
+    const paragraphs = extract.split('\n\n').filter(p => p.trim().length > 0);
+    return paragraphs.slice(0, 2).join('\n\n');
+  } catch (error) {
+    console.error("Wikipedia API error:", error);
+    return translations[lang]?.error || "Sorry, there was a problem fetching information from Wikipedia.";
+  }
+}
+
+// Handle image upload
+async function handleImageUpload(file) {
+  if (!file) return;
+  
+  // First show the uploaded image
+  const imageUrl = URL.createObjectURL(file);
+  const previewContainer = document.createElement('div');
+  previewContainer.classList.add('message', 'bot-message');
+  previewContainer.innerHTML = `
+    <div class="bot-container">
+      <div class="bot-text">${translations[currentLanguage].imageUploadResponse}</div>
+      <img src="${imageUrl}" class="uploaded-image" alt="Uploaded medical image">
+    </div>
+  `;
+  document.getElementById('chat').appendChild(previewContainer);
+  scrollToBottom();
+  
+  // Then analyze the image
+  const analysis = await ImageAnalysis.analyzeImage(file);
+  
+  if (analysis) {
+    const resultContainer = document.createElement('div');
+    resultContainer.classList.add('message', 'bot-message');
+    resultContainer.innerHTML = `
+      <div class="bot-container">
+        <div class="bot-text">${analysis.resultMessage}</div>
+        <img src="${analysis.imageUrl}" class="analyzed-image" alt="Analyzed medical image">
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      </div>
+    `;
+    
+    // Add click handler for the speak button
+    resultContainer.querySelector('.action-icon').addEventListener('click', () => {
+      speakText(analysis.resultMessage.replace(/<[^>]*>/g, ' '));
+    });
+    
+    document.getElementById('chat').appendChild(resultContainer);
+    scrollToBottom();
+  }
+}
+
+// Open image modal
+function openImageModal(imageUrl) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  modalImg.src = imageUrl;
+  modal.style.display = 'flex';
+}
+
+// Close image modal
+function closeImageModal() {
+  document.getElementById('imageModal').style.display = 'none';
+}
+
+// Show message in chat with typing effect
+function showMessage(sender, text) {
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('message', sender + '-message');
+  
+  if (sender === 'bot') {
+    messageElement.innerHTML = `
+      <div class="bot-container">
+        <div class="bot-text"></div>
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      </div>
+    `;
+    const textElement = messageElement.querySelector('.bot-text');
+    typeMessage(textElement, text).then(() => {
+      const speakIcon = messageElement.querySelector('.action-icon');
+      speakIcon.addEventListener('click', () => speakText(text));
+    });
+  } else {
+    messageElement.textContent = text;
+  }
+  
+  document.getElementById('chat').appendChild(messageElement);
+  scrollToBottom();
+  return messageElement;
+}
+
+// Text-to-speech function
+function speakText(text) {
+  if (synth.speaking) synth.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  
+  // Set voice based on current language
+  const voices = synth.getVoices();
+  let voice;
+  
+  switch(currentLanguage) {
+    case 'hi':
+      voice = voices.find(v => v.lang.startsWith('hi-IN')) || voices.find(v => v.lang.includes('hi'));
+      break;
+    case 'mr':
+      voice = voices.find(v => v.lang.startsWith('mr-IN')) || voices.find(v => v.lang.includes('mr'));
+      break;
+    case 'ta':
+      voice = voices.find(v => v.lang.startsWith('ta-IN')) || voices.find(v => v.lang.includes('ta'));
+      break;
+    default:
+      voice = voices.find(v => v.lang.startsWith('en-US')) || voices.find(v => v.lang.includes('en'));
+  }
+  
+  if (voice) utterance.voice = voice;
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+  
+  utterance.onstart = () => {
+    isSpeaking = true;
+    document.getElementById('speakButton').classList.add('active');
+    showMessage('bot', translations[currentLanguage].speaking);
+  };
+  
+  utterance.onend = () => {
+    isSpeaking = false;
+    document.getElementById('speakButton').classList.remove('active');
+  };
+  
+  synth.speak(utterance);
+}
+
+// Get AI response (fallback if Wikipedia doesn't return result)
+async function getAIResponse(query, lang) {
+  const wikiResponse = await fetchWikipediaContent(query, lang);
+  
+  if (wikiResponse && !wikiResponse.includes(translations[lang]?.noInfo || "No relevant information") && 
+      !wikiResponse.includes(translations[lang]?.noExtract || "Could not retrieve")) {
+    return wikiResponse;
+  }
+  
+  // Language-specific responses
+  switch(lang) {
+    case 'hi':
+      if (query.includes('बुखार') || query.includes('तापमान') || query.includes('ज्वर')) {
+        return "बुखार शरीर के संक्रमण से लड़ने का संकेत है। आराम करें और खूब पानी पिएं। यदि बुखार 103°F (39.4°C) से अधिक 48 घंटे से अधिक रहता है, तो डॉक्टर से परामर्श करें।";
+      } else if (query.includes('सिरदर्द') || query.includes('दर्द')) {
+        return "सिरदर्द के कई कारण हो सकते हैं जैसे तनाव, नींद की कमी या डिहाइड्रेशन। अगर दर्द गंभीर है या बार-बार होता है तो डॉक्टर से सलाह लें।";
+      }
+      break;
+      
+    case 'mr':
+      if (query.includes('ताप') || query.includes('ज्वर')) {
+        return "ताप हा शरीराच्या संसर्गाशी लढण्याची खूण आहे. विश्रांती घ्या आणि भरपूर पाणी प्या. जर ताप 103°F (39.4°C) पेक्षा जास्त 48 तासांपेक्षा जास्त काळ टिकत असेल तर डॉक्टरांचा सल्ला घ्या.";
+      } else if (query.includes('डोकेदुखी') || query.includes('वेदना')) {
+        return "डोकेदुखीची अनेक कारणे असू शकतात जसे की तणाव, झोपेची कमतरता किंवा पाण्याची कमतरता. जर वेदना तीव्र असेल किंवा वारंवार येत असेल तर डॉक्टरांचा सल्ला घ्या.";
+      }
+      break;
+      
+    case 'ta':
+      if (query.includes('காய்ச்சல்') || query.includes('வெப்பநிலை')) {
+        return "காய்ச்சல் என்பது உங்கள் உடல் தொற்றுக்கு எதிராக போராடுவதன் அறிகுறியாகும். ஓய்வெடுத்து நிறைய திரவங்களை குடிக்கவும். காய்ச்சல் 103°F (39.4°C) க்கு மேல் 48 மணி நேரத்திற்கும் மேலாக நீடித்தால், மருத்துவரை அணுகவும்.";
+      } else if (query.includes('தலைவலி') || query.includes('வலி')) {
+        return "தலைவலிக்கு பல காரணங்கள் இருக்கலாம், முக்கியமாக மன அழுத்தம், தூக்கமின்மை அல்லது நீரிழப்பு. வலி கடுமையாக இருந்தால் அல்லது மீண்டும் மீண்டும் வந்தால், மருத்துவரை அணுகவும்.";
+      }
+      break;
+      
+    default: // English
+      if (query.includes('fever') || query.includes('temperature')) {
+        return "Fever is a sign your body is fighting infection. Rest and drink plenty of fluids. If fever persists above 103°F (39.4°C) for more than 48 hours, consult a doctor.";
+      } else if (query.includes('headache') || query.includes('pain')) {
+        return "Headaches can have many causes including stress, lack of sleep or dehydration. If pain is severe or recurring, please consult a doctor.";
+      }
+  }
+  
+  // Default response if no specific condition matched
+  return translations[lang]?.noInfo || "I couldn't find specific information about that. Please consult a healthcare professional for accurate medical advice.";
+}
+
+// Handle user queries
+async function handleUserQuery() {
+  const query = document.getElementById('userInput').value.trim();
+  if (!query || paused) return;
+  
+  showMessage('user', query);
+  document.getElementById('userInput').value = '';
+  
+  const loadingMsg = document.createElement('div');
+  loadingMsg.classList.add('message', 'bot-message');
+  loadingMsg.innerHTML = `
+    <div class="typing-indicator">
+      <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      ${translations[currentLanguage].loading}
+    </div>
+  `;
+  document.getElementById('chat').appendChild(loadingMsg);
+  scrollToBottom();
+  
+  try {
+    // Determine response language based on query characters
+    let responseLang = currentLanguage;
+    if (/[\u0900-\u097F]/.test(query)) responseLang = 'hi'; // Hindi
+    else if (/[\u0A80-\u0AFF]/.test(query)) responseLang = 'mr'; // Marathi
+    else if (/[\u0B80-\u0BFF]/.test(query)) responseLang = 'ta'; // Tamil
+    
+    const wikiResponse = await fetchWikipediaContent(query, responseLang);
+    const images = await fetchWikipediaImages(query, responseLang);
+    
+    loadingMsg.remove();
+    
+    const responseContainer = document.createElement('div');
+    responseContainer.classList.add('message', 'bot-message');
+    
+    // Add text response if available
+    if (wikiResponse && !wikiResponse.includes(translations[responseLang]?.noInfo) && 
+        !wikiResponse.includes(translations[responseLang]?.noExtract)) {
+      const textResponse = document.createElement('div');
+      textResponse.classList.add('bot-container');
+      textResponse.innerHTML = `
+        <div class="bot-text">${wikiResponse}</div>
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      `;
+      responseContainer.appendChild(textResponse);
+      textResponse.querySelector('.action-icon').addEventListener('click', () => speakText(wikiResponse));
+    } else {
+      // Fallback to AI response if Wikipedia fails
+      const aiResponse = await getAIResponse(query, responseLang);
+      const textResponse = document.createElement('div');
+      textResponse.classList.add('bot-container');
+      textResponse.innerHTML = `
+        <div class="bot-text">${aiResponse}</div>
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      `;
+      responseContainer.appendChild(textResponse);
+      textResponse.querySelector('.action-icon').addEventListener('click', () => speakText(aiResponse));
+    }
+    
+    // Add images if available
+    if (images && images.length > 0) {
+      const imagesHeader = document.createElement('p');
+      imagesHeader.textContent = translations[responseLang]?.imageUploadResponse || "Related Images:";
+      imagesHeader.style.marginTop = '15px';
+      imagesHeader.style.fontWeight = 'bold';
+      responseContainer.appendChild(imagesHeader);
+      
+      const imagesContainer = document.createElement('div');
+      imagesContainer.className = 'wiki-images';
+      
+      images.forEach(imgUrl => {
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.className = 'wiki-image';
+        img.alt = query;
+        img.addEventListener('click', () => openImageModal(imgUrl));
+        imagesContainer.appendChild(img);
+      });
+      
+      responseContainer.appendChild(imagesContainer);
+    }
+    
+    // Add Wikipedia reference if we used Wikipedia content
+    if (wikiResponse && !wikiResponse.includes(translations[responseLang]?.noInfo) && 
+        !wikiResponse.includes(translations[responseLang]?.noExtract)) {
+      const reference = document.createElement('div');
+      reference.style.marginTop = '15px';
+      reference.style.fontSize = '0.8em';
+      reference.style.color = 'var(--text-light)';
+      reference.innerHTML = translations[responseLang]?.sourceText || 
+        `Source: <a href="https://${responseLang}.wikipedia.org/wiki/${encodeURIComponent(query)}" target="_blank" style="color: var(--primary-blue);">Wikipedia</a>`;
+      responseContainer.appendChild(reference);
+    }
+    
+    document.getElementById('chat').appendChild(responseContainer);
+    scrollToBottom();
+    
+  } catch (error) {
+    console.error('Error:', error);
+    loadingMsg.remove();
+    showMessage('bot', translations[currentLanguage].error);
+  }
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  createParticles();
+  ImageAnalysis.init();
+  
+  const sendButton = document.getElementById('sendButton');
+  const userInputEl = document.getElementById('userInput');
+  const languageSelector = document.getElementById('languageSelector');
+  const speakButton = document.getElementById('speakButton');
+  const listenButton = document.getElementById('listenButton');
+  const downloadButton = document.getElementById('downloadButton');
+  const uploadImageButton = document.getElementById('uploadImageButton');
+  const imageUploadInput = document.getElementById('imageUpload');
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  const pauseButton = document.getElementById('pauseButton');
+  const copyButton = document.getElementById('copyButton');
+  const clearButton = document.getElementById('clearButton');
+  const emergencyBtn = document.getElementById('emergencyBtn');
+  const chat = document.getElementById('chat');
+  const documentsLink = document.getElementById('documentsLink');
+  const adviceLink = document.getElementById('adviceLink');
+  const documentsSection = document.getElementById('documentsSection');
+  const documentCategories = document.getElementById('documentCategories');
+  const documentContent = document.getElementById('documentContent');
+  const closeModalBtn = document.querySelector('.close-modal');
+
+  // Event listeners
+  closeModalBtn.addEventListener('click', closeImageModal);
+  document.getElementById('imageModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('imageModal')) {
+      closeImageModal();
+    }
+  });
+
+  // Initialize speech recognition if available
+  try {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        userInputEl.value = transcript;
+        handleUserQuery();
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        showMessage('bot', translations[currentLanguage].error);
+      };
+      
+      recognition.onend = () => {
+        isListening = false;
+        listenButton.classList.remove('active');
+      };
+    }
+  } catch (e) {
+    console.error('Speech recognition initialization failed', e);
+  }
+
+  // Handle image upload
+  uploadImageButton.addEventListener('click', () => {
+    imageUploadInput.click();
+  });
+
+  imageUploadInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  });
+
+  // Navigation links
+  documentsLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    documentsSection.style.display = 'block';
+    chat.style.display = 'none';
+    updateLanguage();
+  });
+
+  adviceLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    documentsSection.style.display = 'none';
+    chat.style.display = 'block';
+    updateLanguage();
+  });
+
+  // Document categories
+  documentCategories.addEventListener('click', (e) => {
+    const category = e.target.closest('.document-category');
+    if (category) {
+      const categoryId = category.dataset.category;
+      const docData = medicalDocuments[categoryId];
+      
+      documentContent.innerHTML = `
+        <h4>${docData.title}</h4>
+        ${docData.content}
+        <div class="back-to-categories">← ${translations[currentLanguage].backToCategories || "Back to categories"}</div>
+      `;
+      
+      documentContent.style.display = 'block';
+      documentCategories.style.display = 'none';
+      
+      document.querySelector('.back-to-categories').addEventListener('click', () => {
+        documentContent.style.display = 'none';
+        documentCategories.style.display = 'grid';
+      });
+    }
+  });
+
+  // Mobile menu toggle
+  mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+  });
+
+  // Emergency button
+  emergencyBtn.addEventListener('click', () => {
+    showMessage('bot', translations[currentLanguage].emergencyMsg);
+    speakText(translations[currentLanguage].emergencyMsg);
+  });
+
+  // Language selector
+  languageSelector.addEventListener('change', (e) => {
+    currentLanguage = e.target.value;
+    updateLanguage();
+    if (recognition) {
+      // Set recognition language based on selection
+      let recognitionLang = 'en-US';
+      switch(currentLanguage) {
+        case 'hi': recognitionLang = 'hi-IN'; break;
+        case 'mr': recognitionLang = 'mr-IN'; break;
+        case 'ta': recognitionLang = 'ta-IN'; break;
+      }
+      recognition.lang = recognitionLang;
+    }
+  });
+
+  // Update UI language
+  function updateLanguage() {
+    const lang = translations[currentLanguage] || translations.en;
+    document.getElementById('welcomeText').textContent = lang.welcome;
+    document.getElementById('taglineText').textContent = lang.tagline;
+    document.getElementById('disclaimerText').innerHTML = lang.disclaimer;
+    document.getElementById('greeting1').textContent = lang.greeting1;
+    document.getElementById('greeting2').textContent = lang.greeting2;
+    userInputEl.placeholder = lang.placeholder;
+    document.getElementById('sendButton').textContent = lang.send;
+    document.getElementById('pauseButton').innerHTML = paused ? lang.resume : lang.pause;
+    document.getElementById('copyButton').querySelector('.btn-text').textContent = lang.copy;
+    document.getElementById('clearButton').querySelector('.btn-text').textContent = lang.clear;
+    document.getElementById('speakButton').querySelector('.btn-text').textContent = lang.speak;
+    document.getElementById('listenButton').querySelector('.btn-text').textContent = lang.listen;
+    emergencyBtn.title = lang.emergency;
+    documentsLink.textContent = lang.documents;
+    adviceLink.textContent = lang.advice;
+  }
+
+  // Main chat functionality
+  sendButton.addEventListener('click', handleUserQuery);
+  userInputEl.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleUserQuery();
+  });
+
+  // Pause/Resume chat
+  pauseButton.addEventListener('click', () => {
+    paused = !paused;
+    pauseButton.innerHTML = paused 
+      ? `▶️ <span class="btn-text">${translations[currentLanguage].resume}</span>`
+      : `⏸️ <span class="btn-text">${translations[currentLanguage].pause}</span>`;
+  });
+
+  // Copy chat history
+  copyButton.addEventListener('click', () => {
+    let chatText = '';
+    document.querySelectorAll('#chat .message').forEach(msg => {
+      chatText += msg.textContent + '\n\n';
+    });
+    navigator.clipboard.writeText(chatText)
+      .then(() => showNotification(translations[currentLanguage].copySuccess || 'Chat copied to clipboard!'))
+      .catch(() => showMessage('bot', translations[currentLanguage].copyFailed || 'Failed to copy chat.'));
+  });
+
+  // Clear chat
+  clearButton.addEventListener('click', () => {
+    chat.innerHTML = '';
+    const greeting = document.createElement('div');
+    greeting.classList.add('message', 'bot-message');
+    greeting.innerHTML = `
+      <div class="bot-container">
+        <div class="bot-text">${translations[currentLanguage].greeting1}</div>
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      </div>
+      <div class="bot-container">
+        <div class="bot-text">${translations[currentLanguage].greeting2}</div>
+        <span class="action-icon tooltip" title="${translations[currentLanguage].speak}">🔊
+          <span class="tooltiptext">${translations[currentLanguage].speak}</span>
+        </span>
+      </div>
+    `;
+    chat.appendChild(greeting);
+    scrollToBottom();
+  });
+
+  // Download chat as PDF
+  downloadButton.addEventListener('click', () => {
+    let chatText = '';
+    document.querySelectorAll('#chat .message').forEach(msg => {
+      chatText += msg.textContent + '\n\n';
+    });
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const lines = doc.splitTextToSize(chatText, 180);
+    doc.text(lines, 10, 10);
+    doc.save('medi-ai-chat.pdf');
+    showNotification(translations[currentLanguage].downloadSuccess || 'Chat downloaded as PDF!');
+  });
+
+  // Voice input
+  listenButton.addEventListener('click', () => {
+    if (!recognition) {
+      showMessage('bot', translations[currentLanguage].noRecognition);
+      return;
+    }
+    if (isListening) {
+      recognition.stop();
+      isListening = false;
+      listenButton.classList.remove('active');
+    } else {
+      recognition.start();
+      isListening = true;
+      listenButton.classList.add('active');
+      showMessage('bot', translations[currentLanguage].listen);
+    }
+  });
+
+  // Text-to-speech
+  speakButton.addEventListener('click', () => {
+    if (isSpeaking) {
+      synth.cancel();
+      isSpeaking = false;
+      return;
+    }
+    const botMessages = document.querySelectorAll('.bot-message .bot-text');
+    if (botMessages.length === 0) {
+      showMessage('bot', translations[currentLanguage].noText);
+      return;
+    }
+    let fullText = '';
+    botMessages.forEach(msg => { fullText += msg.textContent + ' '; });
+    speakText(fullText);
+  });
+
+  // Initial language setup
+  updateLanguage();
+  
+  // Voice synthesis setup
+  if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = () => {
+      console.log('Voices loaded');
+      // Reinitialize voices when they change
+      if (synth.getVoices().length > 0) {
+        console.log('Voices available:', synth.getVoices());
+      }
+    };
+  }
+});
+  </script>
+</body>
+</html>

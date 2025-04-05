@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare: Real-Time Video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2DhKNtKaE6q2k0tCkrtOErJ2+yyi4E6Q+o6fqgW9mK4VZvOg9LcMRs9G6jIMs8jXA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <title>Home | E-Health Care</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+    margin: 0;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.word {
+    opacity: 0; /* Start with the words hidden */
+    transform: translateY(20px); /* Start with words slightly below */
+    animation: slideIn 1s ease-out forwards;
+    margin: 0 5px; /* Space out words */
+}
+
+.word:nth-child(1) {
+    animation-delay: 0s; /* No delay for the first word */
+}
+
+.word:nth-child(2) {
+    animation-delay: 0.5s; /* Delay for the second word */
+}
+
+.word:nth-child(3) {
+    animation-delay: 1s; /* Delay for the third word */
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        #external-video {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin-top: 2rem;
+        }
+
+        .description {
+            margin-top: 1.5rem;
+            max-width: 800px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+    
+ <!-- Navbar-Start -->
+    <!-- Navbar Start -->
+    <div class="navbar-shadow">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="./assets/images/logo.svg" alt="Logo" width="75%" height="auto">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="heart-checkup.html">Heart Checkup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="Covid.html">Covid-19</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="about.html">About Us</a>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-danger dropdown-toggle" type="button" id="servicesDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Services
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="cancer.html">Cancer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="breast-cancer.html">Breast Cancer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="mental-health.html">Mental Health</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- User Profile -->
+                        <div class="d-flex align-items-center btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img class="user-img" src="./assets/images/user.png" alt="User">
+                                <span class="user-first-name">Shahriar</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="PublicProfile.html">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a type="button" class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    <header>
+        <h1>
+            <span class="word">Healthcare</span>
+            <span class="word">Real-Time</span>
+            <span class="word">Video</span>
+        </h1>
+    </header>
+    
+    <main>
+      <!-- External Video Link (e.g., YouTube video) -->
+<div id="external-video">
+    <iframe width="100%" height="450" src="https://www.youtube.com/embed/mUzq_h1GCXE?si=eEeH_GmapK-QKSL8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div class="description">
+    <p>Our real-time video service connects you with healthcare professionals instantly. Use this feature to discuss your health concerns, get expert advice, or conduct follow-up consultations.</p>
+</div>
+
+    </main>
+    
+
+    <!-- footer start -->
+    <footer class="footer fixed-footer">
+        <div class="container">
+            <div class="row gy-3 align-items-start">
+
+                <!-- About Section -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-about">
+                        <div class="footer-logo mb-2">
+                            <a href="index.html"><img src="./assets/images/logo-white.svg" alt="E-Health Care Logo"
+                                    class="img-fluid" style="max-width: 120px;"></a>
+                        </div>
+                        <p style="font-size: 0.9rem;">E-Health Care is a dream turned into a tech-based startup,
+                            creating positive impacts in people's lives.</p>
+                        <div class="d-flex gap-3 mt-2">
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-facebook fa-lg"
+                                    style="color:#30629d;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-twitter fa-lg"
+                                    style="color:#00A7E6;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-linkedin fa-lg"
+                                    style="color:#0073B1;"></i></a>
+                            <a href="https://www.instagram.com/ni.kh.il__18/" target="_blank" class="social-icons"><i
+                                    class="fab fa-instagram fa-lg" style="color:#D32C86;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">About Us</a></li>
+                            <li><a href="#" class="text-light">Contact Us</a></li>
+                            <li><a href="#" class="text-light">Doctor Portal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="row mt-3">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-copyright-text">
+                        <p class="mb-0" style="font-size: 0.85rem;">&copy; Copyright
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> | <a href="index.html" class="text-primary">E-Health Care</a> | All Rights
+                            Reserved
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+
+    <script>
+        const videoElement = document.getElementById('video');
+        let stream;
+
+        async function startVideo() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                videoElement.srcObject = stream;
+            } catch (error) {
+                alert('Error accessing the camera: ' + error.message);
+            }
+        }
+
+        function stopVideo() {
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                videoElement.srcObject = null;
+            }
+        }
+    </script>
+</body>
+</html>

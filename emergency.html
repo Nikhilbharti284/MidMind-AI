@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Emergency Assistance</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+  <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+  <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+  <title>Home | E-Health Care</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+  <script src="https://unpkg.com/@yaireo/tagify"></script>
+  <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+  <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    /* CSS Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      overflow-x: hidden;
+    }
+    /* Navbar Styles */
+    .navbar-shadow {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1100;
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .navbar-brand img {
+      max-width: 100%;
+      height: auto;
+    }
+    .user-img {
+      border-radius: 50%;
+      width: 40px;
+      height: 30px;
+      object-fit: cover;
+      margin-right: 8px;
+    }
+    /* Hero Section */
+/* HERO SECTION */
+.hero {
+  position: relative;
+  /* Use a fixed height (vh) or adjust as needed */
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+/* fallback color if image fails to load */
+}
+
+/* Optional overlay to darken or lighten the background GIF */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+  );
+  z-index: 0;
+}
+
+/* Animated GIF - covers entire hero area */
+.hero-img {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures full coverage without distortion */
+  z-index: -1;       /* behind the text */
+  filter: brightness(0.8);
+  transition: filter 0.5s ease;
+  /* Two animations: gentle zoom and vertical float */
+  animation: heroZoom 20s ease-in-out infinite alternate,
+             heroFloat 15s ease-in-out infinite;
+}
+
+/* On hover, slightly brighten the background */
+.hero:hover .hero-img {
+  filter: brightness(1);
+}
+
+/* Heading and subheading styling inside hero */
+.hero-content {
+  position: relative; 
+  z-index: 2; /* in front of the background & overlay */
+  max-width: 800px; 
+  padding: 1rem;
+  animation: slideUpFade 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+}
+
+.hero-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: slideUpFade 1s ease-in-out 0.7s forwards;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  animation: slideUpFade 1s ease-in-out 0.9s forwards;
+}
+
+/* KEYFRAMES for hero animations */
+@keyframes heroZoom {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0) scale(1.0); }
+  50%      { transform: translateY(-10px) scale(1.05); }
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+    /* Emergency Contacts */
+    .emergency-contacts {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .contact-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .contact-card:hover {
+      transform: translateY(-5px);
+    }
+    .contact-card h3 {
+      color: #ff4444;
+      margin-bottom: 1rem;
+    }
+    .emergency-button {
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: background-color 0.3s;
+    }
+    .emergency-button:hover {
+      background-color: #ff2222;
+    }
+    /* Emergency Guide */
+    .emergency-guide {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      animation: fadeIn 1s ease-out;
+    }
+    .emergency-guide h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .guide-step {
+      background: white;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .guide-step h3 {
+      color: #ff4444;
+      margin-bottom: 0.5rem;
+    }
+    /* Detailed content placeholder styling */
+    .detailed-content {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #555;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      padding-right: 10px;
+      border-top: 1px solid #eee;
+    }
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      animation: fadeInUp 1s ease-out;
+    }
+    /* Scroll to Top */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff4444;
+      color: white;
+      padding: 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      animation: fadeIn 1s ease-out;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .emergency-contacts {
+        grid-template-columns: 1fr;
+      }
+      .form-section {
+        padding: 3rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+      <!-- Navbar Start -->
+      <div class="navbar-shadow">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="logo" style="
+              font-family: Arial, sans-serif; 
+              font-size: 24px; 
+              font-weight: bold;
+              background: linear-gradient(to right, #337EFF, #8E5CFF);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+          ">
+              MediMind AI
+          </div>
+          
+          
+              <!-- Toggler (for mobile view) -->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+      
+              <!-- Navbar Items -->
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+                <!-- Main Nav Links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="heart-checkup.html">Heart Checkup</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-danger" href="Covid.html">Covid-19</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-danger" href="about.html">About Us</a>
+                  </li>
+                </ul>
+      
+                <!-- Search Bar -->
+                <form class="d-flex me-3">
+                  <!-- Optionally limit the input width -->
+                  <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
+                         style="max-width: 200px;">
+                  <button class="btn btn-outline-success" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+      
+                <!-- Services Dropdown -->
+                <div class="dropdown me-3">
+                  <button class="btn btn-danger dropdown-toggle" type="button" id="servicesDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Services
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                    <li><a class="dropdown-item" href="cancer.html">Cancer</a></li>
+                 
+                  </ul>
+                </div>
+      
+                <!-- Dark Mode Toggle (Optional) -->
+                <button class="btn btn-secondary me-3" onclick="toggleTheme()">
+                  <i class="fas fa-adjust"></i>
+                </button>
+      
+              
+      
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Navbar End -->
+      
+  <!-- Hero Section with Animated GIF -->
+  <section class="hero">
+    <img src="https://emergencyservices.ie/wp-content/uploads/2018/08/emergency-services-logo.png" alt="Animated Healthcare GIF" class="hero-img">
+    <div class="hero-content">
+      <h2>Emergency Help is Here</h2>
+      <p>Immediate assistance when you need it most.</p>
+    </div>
+  </section>
+
+  <!-- Emergency Contacts Section -->
+  <section class="emergency-contacts">
+    <!-- Police Contact Card -->
+    <div class="contact-card">
+      <h3>Police</h3>
+      <p>Emergency Number</p>
+      <button class="emergency-button" onclick="callEmergency('100')">Call 100</button>
+      <div class="detailed-content">
+        <p>
+          The police are the front-line force responsible for maintaining law and order. In any critical situation involving crime, violence, or disturbance of public peace, you should contact the police immediately. When you dial 100, you will be connected to trained professionals who will gather essential information about your location and the nature of the emergency. They are equipped with the latest technology, including body cameras and real-time tracking systems, ensuring rapid response.
+        </p>
+        <p>
+          Police services also engage in community outreach and education to help citizens understand how to stay safe. They offer guidance on how to secure your home, report suspicious activities, and interact with law enforcement in emergencies. It is important to remain calm during an emergency call—provide clear, concise details and follow the operator's instructions.
+        </p>
+      </div>
+    </div>
+    <!-- Ambulance Contact Card -->
+    <div class="contact-card">
+      <h3>Ambulance</h3>
+      <p>Medical Emergency</p>
+      <button class="emergency-button" onclick="callEmergency('108')">Call 108</button>
+      <div class="detailed-content">
+        <p>
+          Ambulance services are vital in medical emergencies, providing rapid transport and on-scene care. When you call 108, a professional dispatcher will assess the situation and send a well-equipped ambulance with paramedics or EMTs. These teams are trained in emergency medical procedures, such as CPR and advanced life support, to stabilize patients before hospital arrival.
+        </p>
+        <p>
+          During the call, remain calm and provide as many details as possible—this includes your location, the patient’s condition, and any visible injuries or symptoms. Ambulance teams are also supported by modern GPS tracking and communication tools, ensuring that help reaches you promptly.
+        </p>
+      </div>
+    </div>
+    <!-- Fire Department Contact Card -->
+    <div class="contact-card">
+      <h3>Fire Department</h3>
+      <p>Fire Emergency</p>
+      <button class="emergency-button" onclick="callEmergency('101')">Call 101</button>
+      <div class="detailed-content">
+        <p>
+          The fire department is dedicated to saving lives and property in the event of a fire. When you call 101, trained firefighters and emergency response teams are dispatched to control the blaze, rescue occupants, and prevent further damage. They use specialized equipment like fire hoses, breathing apparatus, and thermal imaging cameras to manage hazardous situations.
+        </p>
+        <p>
+          In addition to extinguishing fires, the fire department also provides guidance on fire prevention and safety, including evacuation procedures, use of smoke detectors, and creating fire escape plans. Always prioritize your safety and that of others by evacuating immediately if a fire occurs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Guide Section with Extended Details -->
+  <section class="emergency-guide">
+    <h2>Emergency Guide</h2>
+    <!-- Step 1: Stay Calm -->
+    <div class="guide-step" id="step1">
+      <h3>Step 1: Stay Calm</h3>
+      <p>
+        In any emergency, the first step is to remain calm. When panic sets in, your judgment and ability to act quickly can be severely impaired. Take deep, steady breaths to help slow your heart rate and focus your mind. By staying calm, you can more clearly assess the situation and determine the best course of action. Techniques like mindfulness, deep breathing, or even simply pausing for a moment to collect your thoughts can make a significant difference.
+      </p>
+      <p>
+        Remaining calm also ensures that you can communicate effectively with emergency responders. They need clear, accurate information to dispatch the appropriate assistance. Remember, your calmness can have a positive impact on others around you—helping to keep the overall situation under control.
+      </p>
+    </div>
+    <!-- Step 2: Call Emergency Services -->
+    <div class="guide-step" id="step2">
+      <h3>Step 2: Call Emergency Services</h3>
+      <p>
+        Once you are composed, dial the appropriate emergency number immediately. For criminal activities, call the police; for medical emergencies, contact ambulance services; and for fire emergencies, reach out to the fire department. When you make the call, speak clearly and provide the dispatcher with essential details such as your exact location, the nature of the emergency, and any relevant observations.
+      </p>
+      <p>
+        It is important to stay on the line and answer any follow-up questions the operator may have. This information will help them prioritize your call and dispatch the correct type of emergency response. Having a clear plan and knowing the right number to call in each situation can save valuable time and potentially lives.
+      </p>
+    </div>
+    <!-- Step 3: Follow Instructions -->
+    <div class="guide-step" id="step3">
+      <h3>Step 3: Follow Instructions</h3>
+      <p>
+        After contacting emergency services, carefully listen to the instructions provided by the operator. These instructions are designed to ensure your safety and the safety of those around you. Whether you are advised to evacuate the area, administer basic first aid, or simply wait for emergency responders, following these directions is critical.
+      </p>
+      <p>
+        If you are with others, coordinate with them and assign roles if possible—for example, one person may be responsible for keeping calm while another provides additional details to the dispatcher. Trust that the emergency protocols are designed to mitigate risk, and avoid taking actions that could exacerbate the situation. Your adherence to these guidelines will help ensure a quicker, more effective response.
+      </p>
+    </div>
+  </section>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row gy-3 align-items-start">
+        <!-- About Section -->
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-about">
+            <div class="footer-logo mb-2">
+              <a href="index.html">
+                <img src="./assets/images/logo-white.svg" alt="E-Health Care Logo" class="img-fluid" style="max-width: 120px;">
+              </a>
+            </div>
+            <p style="font-size: 0.9rem;">E-Health Care is a dream turned into a tech-based startup, creating positive impacts in people's lives.</p>
+            <div class="d-flex gap-3 mt-2">
+              <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-facebook fa-lg" style="color:#30629d;"></i></a>
+              <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-twitter fa-lg" style="color:#00A7E6;"></i></a>
+              <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-linkedin fa-lg" style="color:#0073B1;"></i></a>
+              <a href="https://www.instagram.com/ni.kh.il__18/" target="_blank" class="social-icons"><i class="fab fa-instagram fa-lg" style="color:#D32C86;"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Information Section -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light">About Us</a></li>
+              <li><a href="#" class="text-light">Contact Us</a></li>
+              <li><a href="#" class="text-light">Doctor Portal</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Quick Links Section -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light">My Account</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div class="row mt-3">
+        <div class="col-lg-12 text-center">
+          <div class="footer-copyright-text">
+            <p class="mb-0" style="font-size: 0.85rem;">
+              &copy; Copyright
+              <script>document.write(new Date().getFullYear());</script> |
+              <a href="index.html" class="text-primary">E-Health Care</a> | All Rights Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Emergency Call Function
+    function callEmergency(number) {
+      if (confirm(`Are you sure you want to call ${number}?`)) {
+        console.log(`Calling ${number}...`);
+        alert(`Connecting to ${number}...`);
+      }
+    }
+    // Scroll to Top Functionality
+    window.onscroll = function() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollToTop").style.display = "block";
+      } else {
+        document.getElementById("scrollToTop").style.display = "none";
+      }
+    };
+    function scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+    // Animate guide steps on page load
+    document.querySelectorAll('.guide-step').forEach((step, index) => {
+      setTimeout(() => {
+        step.style.opacity = '1';
+        step.style.transform = 'translateY(0)';
+      }, index * 300);
+    });
+    // Animate contact cards on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.contact-card').forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
+</body>
+</html>

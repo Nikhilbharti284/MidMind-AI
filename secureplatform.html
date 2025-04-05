@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare: Real-Time Video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2DhKNtKaE6q2k0tCkrtOErJ2+yyi4E6Q+o6fqgW9mK4VZvOg9LcMRs9G6jIMs8jXA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <title>Home | E-Health Care</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Layout */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header p {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        
+        /* Responsive Grid */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .service {
+            background: #f4f4f4;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .service-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Intro Section */
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .intro-img {
+            width: 100%;
+            height: auto;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Contact Form */
+        .contact {
+            margin-top: 2rem;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact label {
+            margin-top: 1rem;
+        }
+
+        .contact input, .contact textarea {
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .contact button {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .contact button:hover {
+            background: #45a049;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.2rem;
+            }
+            .service {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animations */
+        .animate__animated {
+            animation-duration: 1.5s;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+       
+ <!-- Navbar-Start -->
+    <!-- Navbar Start -->
+    <div class="navbar-shadow">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="./assets/images/logo.svg" alt="Logo" width="75%" height="auto">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="heart-checkup.html">Heart Checkup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="Covid.html">Covid-19</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="about.html">About Us</a>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="dropdown">
+                            <button class="btn btn-danger dropdown-toggle" type="button" id="servicesDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Services
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="cancer.html">Cancer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="breast-cancer.html">Breast Cancer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="mental-health.html">Mental Health</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- User Profile -->
+                        <div class="d-flex align-items-center btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img class="user-img" src="./assets/images/user.png" alt="User">
+                                <span class="user-first-name">Shahriar</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="PublicProfile.html">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a type="button" class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <header id="home">
+        <h1 class="animate__animated animate__fadeInDown">Welcome to Secure Platform</h1>
+        <p class="animate__animated animate__fadeInUp">Leading the way in healthcare innovation and excellence.</p>
+    </header>
+
+    <main>
+       
+        <section id="services" class="services">
+            <div class="service animate__animated animate__zoomIn">
+                <img src="data:image/jpeg;base64,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" alt="Consultation Service" class="service-img">
+                <h3>Consultation</h3>
+                <p>Expert advice from professionals to guide your health journey.</p>
+            </div>
+            <div class="service animate__animated animate__zoomIn">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-9GLPu2XmTsctZEzH2oLH_tdidLkXX_A5ISH5PzUB6WhDkdSLEe-N2_1Dua5bmHTQgAM&usqp=CAU" alt="Treatment Service" class="service-img">
+                <h3>Treatment</h3>
+                <p>World-class treatment facilities with cutting-edge technology.</p>
+            </div>
+            <div class="service animate__animated animate__zoomIn">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdyGuuk1jdyJbDd1-NBWYhfbsGBshaKHERh1Oe4BxwrJxGJJfwHazg4Vbu3HQR8CUTpcI&usqp=CAUg" alt="Support Service" class="service-img">
+                <h3>Support</h3>
+                <p>24/7 support to address all your healthcare needs anytime, anywhere.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+
+    <!-- footer start -->
+    <footer class="footer fixed-footer">
+        <div class="container">
+            <div class="row gy-3 align-items-start">
+
+                <!-- About Section -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-about">
+                        <div class="footer-logo mb-2">
+                            <a href="index.html"><img src="./assets/images/logo-white.svg" alt="E-Health Care Logo"
+                                    class="img-fluid" style="max-width: 120px;"></a>
+                        </div>
+                        <p style="font-size: 0.9rem;">E-Health Care is a dream turned into a tech-based startup,
+                            creating positive impacts in people's lives.</p>
+                        <div class="d-flex gap-3 mt-2">
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-facebook fa-lg"
+                                    style="color:#30629d;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-twitter fa-lg"
+                                    style="color:#00A7E6;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-linkedin fa-lg"
+                                    style="color:#0073B1;"></i></a>
+                            <a href="https://www.instagram.com/ni.kh.il__18/" target="_blank" class="social-icons"><i
+                                    class="fab fa-instagram fa-lg" style="color:#D32C86;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">About Us</a></li>
+                            <li><a href="#" class="text-light">Contact Us</a></li>
+                            <li><a href="#" class="text-light">Doctor Portal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="row mt-3">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-copyright-text">
+                        <p class="mb-0" style="font-size: 0.85rem;">&copy; Copyright
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> | <a href="index.html" class="text-primary">E-Health Care</a> | All Rights
+                            Reserved
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Thank you for contacting us!');
+    // Here you can add more functionality, such as sending the form data to a server
+});
+    </script>
+</body>
+</html>

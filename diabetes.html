@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Diabetes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            color: #0066cc;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .highlight {
+            background-color: #e6f2ff;
+            padding: 15px;
+            border-left: 5px solid #0066cc;
+            margin: 20px 0;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .symptom-list, .prevention-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .symptom-list li, .prevention-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .symptom-list li:before {
+            content: "•";
+            color: #0066cc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .prevention-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Understanding Diabetes</h1>
+        <p>A comprehensive guide to diabetes: causes, symptoms, types, and management</p>
+    </header>
+    
+    <main>
+        <section id="intro">
+            <h2>What is Diabetes?</h2>
+            <p>Diabetes is a chronic health condition that affects how your body turns food into energy. Most of the food you eat is broken down into sugar (glucose) and released into your bloodstream. When your blood sugar goes up, it signals your pancreas to release insulin, which acts like a key to let the blood sugar into your body's cells for use as energy.</p>
+            
+            <p>If you have diabetes, your body either doesn't make enough insulin or can't use the insulin it makes as well as it should. When there isn't enough insulin or cells stop responding to insulin, too much blood sugar stays in your bloodstream. Over time, this can cause serious health problems such as heart disease, vision loss, and kidney disease.</p>
+            
+            <div class="highlight">
+                <strong>Key Fact:</strong> According to the World Health Organization, about 422 million people worldwide have diabetes, and 1.5 million deaths are directly attributed to diabetes each year.
+            </div>
+        </section>
+        
+        <section id="types">
+            <h2>Types of Diabetes</h2>
+            <div class="container">
+                <div class="card">
+                    <h3>Type 1 Diabetes</h3>
+                    <p>Type 1 diabetes is thought to be caused by an autoimmune reaction that stops your body from making insulin. Approximately 5-10% of people with diabetes have Type 1. Symptoms often develop quickly and it's usually diagnosed in children, teens, and young adults.</p>
+                    <p>People with Type 1 diabetes need to take insulin every day to survive. Currently, there's no known way to prevent or cure Type 1 diabetes.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Type 2 Diabetes</h3>
+                    <p>With Type 2 diabetes, your body doesn't use insulin properly and can't keep your blood sugar at normal levels. About 90-95% of people with diabetes have Type 2. It develops over many years and is usually diagnosed in adults.</p>
+                    <p>Type 2 can be prevented or delayed with healthy lifestyle changes, such as losing weight, eating healthy food, and being active.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Gestational Diabetes</h3>
+                    <p>Gestational diabetes develops in pregnant women who have never had diabetes. If you have gestational diabetes, your baby could be at higher risk for health problems.</p>
+                    <p>Gestational diabetes usually goes away after your baby is born. However, it increases your risk for type 2 diabetes later in life.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Prediabetes</h3>
+                    <p>In prediabetes, blood sugar levels are higher than normal, but not high enough yet to be diagnosed as type 2 diabetes. Prediabetes raises your risk for type 2 diabetes, heart disease, and stroke.</p>
+                    <p>The good news is that if you have prediabetes, the CDC-led National Diabetes Prevention Program can help you make lifestyle changes to prevent or delay type 2 diabetes.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="symptoms">
+            <h2>Common Symptoms of Diabetes</h2>
+            <p>The symptoms of diabetes can vary depending on how much your blood sugar is elevated. Some people, especially those with prediabetes or type 2 diabetes, may not experience symptoms initially. In type 1 diabetes, symptoms tend to come on quickly and be more severe.</p>
+            
+            <ul class="symptom-list">
+                <li>Increased thirst</li>
+                <li>Frequent urination</li>
+                <li>Extreme hunger</li>
+                <li>Unexplained weight loss</li>
+                <li>Fatigue</li>
+                <li>Irritability</li>
+                <li>Blurred vision</li>
+                <li>Slow-healing sores</li>
+                <li>Frequent infections</li>
+                <li>Numbness or tingling in the hands or feet</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>Warning:</strong> If you notice any of these symptoms, contact your healthcare provider. Early diagnosis and treatment can prevent complications.
+            </div>
+        </section>
+        
+        <section id="risk-factors">
+            <h2>Risk Factors for Type 2 Diabetes</h2>
+            <p>Certain factors can increase your risk of developing type 2 diabetes:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Risk Factor</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Weight</td>
+                        <td>Being overweight or obese is a main risk factor</td>
+                    </tr>
+                    <tr>
+                        <td>Fat Distribution</td>
+                        <td>Storing fat primarily in your abdomen increases your risk compared to storing it elsewhere</td>
+                    </tr>
+                    <tr>
+                        <td>Inactivity</td>
+                        <td>The less active you are, the greater your risk</td>
+                    </tr>
+                    <tr>
+                        <td>Family History</td>
+                        <td>Your risk increases if a parent or sibling has type 2 diabetes</td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td>Your risk increases as you get older, especially after age 45</td>
+                    </tr>
+                    <tr>
+                        <td>Race or Ethnicity</td>
+                        <td>Certain races — including Black, Hispanic, American Indian and Asian people — are at higher risk</td>
+                    </tr>
+                    <tr>
+                        <td>Prediabetes</td>
+                        <td>Prediabetes is a precursor to type 2 diabetes</td>
+                    </tr>
+                    <tr>
+                        <td>Gestational Diabetes</td>
+                        <td>If you had gestational diabetes during pregnancy, your risk of developing type 2 diabetes increases</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="complications">
+            <h2>Complications of Diabetes</h2>
+            <p>Long-term complications of diabetes develop gradually. The longer you have diabetes — and the less controlled your blood sugar — the higher the risk of complications. Eventually, diabetes complications may be disabling or even life-threatening.</p>
+            
+            <div class="container">
+                <div class="card">
+                    <h3>Cardiovascular Disease</h3>
+                    <p>Diabetes dramatically increases the risk of heart disease, stroke, high blood pressure and narrowing of blood vessels (atherosclerosis).</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Nerve Damage (Neuropathy)</h3>
+                    <p>Excess sugar can injure the walls of the tiny blood vessels that nourish your nerves, especially in the legs. This can cause tingling, numbness, burning or pain.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Kidney Damage (Nephropathy)</h3>
+                    <p>Diabetes can damage the kidneys' filtering system, which might lead to kidney failure or end-stage kidney disease requiring dialysis or a kidney transplant.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Eye Damage (Retinopathy)</h3>
+                    <p>Diabetes can damage the blood vessels of the retina, potentially leading to blindness. Diabetes also increases the risk of other serious vision conditions.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="treatment">
+            <h2>Diabetes Management and Treatment</h2>
+            <p>Diabetes management requires awareness. You need to know what makes your blood sugar level rise and fall, and how to control these day-to-day factors.</p>
+            
+            <div class="container">
+                <div class="card">
+                    <h3>Healthy Eating</h3>
+                    <p>A registered dietitian can help you create a meal plan that fits your health goals, food preferences, and lifestyle. Focus on fruits, vegetables, whole grains, and lean proteins.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Physical Activity</h3>
+                    <p>Regular exercise can lower your blood sugar and help your body use insulin more efficiently. Aim for at least 150 minutes of moderate exercise per week.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Medication & Insulin</h3>
+                    <p>Many people with diabetes need medication to help manage their blood glucose levels. Some take oral medications, while others need insulin injections.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Blood Sugar Monitoring</h3>
+                    <p>Depending on your treatment plan, you may need to check and record your blood sugar level every day or multiple times a day.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="prevention">
+            <h2>Prevention of Type 2 Diabetes</h2>
+            <p>Type 2 diabetes isn't inevitable. Even if you have prediabetes, you can prevent or delay the onset of type 2 diabetes with lifestyle changes:</p>
+            
+            <ul class="prevention-list">
+                <li>Maintain a healthy weight</li>
+                <li>Be physically active most days of the week</li>
+                <li>Eat a balanced diet rich in fruits, vegetables, whole grains and lean proteins</li>
+                <li>Limit processed foods and added sugars</li>
+                <li>Quit smoking if you currently smoke</li>
+                <li>Manage stress effectively</li>
+                <li>Get regular health check-ups</li>
+            </ul>
+            
+            <div class="highlight">
+                <strong>Take Action:</strong> Small changes can make a big difference. Losing just 5-7% of your body weight and getting regular physical activity can reduce your risk of developing type 2 diabetes by up to 58%.
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p><strong>Disclaimer:</strong> This information is for educational purposes only and is not intended as medical advice. Always consult with a qualified healthcare provider for diagnosis and treatment of medical conditions.</p>
+        <p>Last updated: April 2025</p>
+    </footer>
+</body>
+</html>

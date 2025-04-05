@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <!-- Google Font CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./assets/css/DoctorProfile.css">
+    <title>Doctor Profile | E-Health Care</title>
+</head>
+
+<body>
+     <!-- Navbar Start -->
+<div style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background: white; position: fixed; width: 100%; top: 0; z-index: 1000;">
+    <div style="max-width: 1200px; margin: auto; padding: 10px;">
+        <nav style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            
+            <!-- Logo -->
+            <div style="
+                font-family: Arial, sans-serif; 
+                font-size: 24px; 
+                font-weight: bold;
+                background: linear-gradient(to right, #337EFF, #8E5CFF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;">
+                MediMind AI
+            </div>
+  
+            <!-- Toggler Button for Mobile -->
+            <button id="menu-btn" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;" 
+                onclick="toggleMenu()">
+                ☰
+            </button>
+  
+            <!-- Navbar Items -->
+            <div id="navbar-menu" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; transition: all 0.3s ease-in-out;">
+                <a href="index.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Home</a>
+                <a href="heart-checkup.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Heart Checkup</a>
+                <a href="Covid.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">Covid-19</a>
+                <a href="about.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">About Us</a>
+  
+                <!-- Search Bar -->
+                <form style="display: flex; align-items: center;">
+                    <input type="search" placeholder="Search..." aria-label="Search"
+                           style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; max-width: 200px; transition: 0.3s;" 
+                           onfocus="this.style.border='1px solid #337EFF'" onblur="this.style.border='1px solid #ccc'">
+                    <button type="submit" style="background: green; color: white; padding: 8px 12px; border: none; margin-left: 5px; cursor: pointer; border-radius: 4px;">
+                        🔍
+                    </button>
+                </form>
+  
+                <!-- Services Dropdown -->
+                <div style="position: relative;">
+                    <button onclick="toggleDropdown()" style="background: red; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                        Services ⬇
+                    </button>
+                    <ul id="servicesDropdown" style="display: none; position: absolute; background: white; list-style: none; padding: 10px; margin: 0; border-radius: 4px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <li><a href="cancer.html" style="text-decoration: none; color: black; display: block; padding: 5px 10px;">Cancer</a></li>
+                    </ul>
+                </div>
+  
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleTheme()" style="background: gray; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                    🌙
+                </button>
+            </div>
+        </nav>
+    </div>
+  </div>
+  <!-- Navbar End -->
+  
+  <!-- JavaScript for Dropdown & Mobile Menu -->
+  <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("servicesDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  
+    function toggleMenu() {
+        var menu = document.getElementById("navbar-menu");
+        var button = document.getElementById("menu-btn");
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "flex";
+            button.innerHTML = "✖"; // Change to close icon
+        } else {
+            menu.style.display = "none";
+            button.innerHTML = "☰"; // Change to menu icon
+        }
+    }
+  
+    function toggleTheme() {
+        var body = document.body;
+        var nav = document.querySelector("div");
+        var links = document.querySelectorAll("a");
+        if (body.style.background === "black") {
+            body.style.background = "white";
+            body.style.color = "black";
+            nav.style.background = "white";
+            links.forEach(link => link.style.color = "black");
+        } else {
+            body.style.background = "black";
+            body.style.color = "white";
+            nav.style.background = "#222";
+            links.forEach(link => link.style.color = "white");
+        }
+    }
+  
+    // Responsive Menu Button Show/Hide
+    window.onload = function () {
+        var menu = document.getElementById("menu-btn");
+        var navbar = document.getElementById("navbar-menu");
+        if (window.innerWidth <= 768) {
+            menu.style.display = "block";
+            navbar.style.display = "none";
+        }
+    };
+    window.onresize = function () {
+        var menu = document.getElementById("menu-btn");
+        var navbar = document.getElementById("navbar-menu");
+        if (window.innerWidth <= 768) {
+            menu.style.display = "block";
+            navbar.style.display = "none";
+        } else {
+            menu.style.display = "none";
+            navbar.style.display = "flex";
+        }
+    };
+  </script>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card user-card">
+                        <div class="card-header">
+                            <h5>Profile</h5>
+                        </div>
+                        <div class="card-block">
+                            <div class="user-image">
+                                <img src="./assets/images/doctor-4.png" class="img-radius" alt="User-Profile-Image">
+                            </div>
+                            <h4 class="f-w-600 m-b-10">Nikhil Bharti</h4>
+                            <p class="text-muted">Dental Surgen</p>
+                            <hr>
+                            <p class="text-muted m-t-15"> Specialist in</p>
+                            <ul class="list-unstyled activity-leval">
+                                <li class="active"></li>
+                                <li class="active"></li>
+                                <li class="active"></li>
+                                <li class="active"></li>
+                            </ul>
+                            <p class="m-t-15 text-muted">Dentistry (Dental, Orthodontics, Maxillofacial Surgery,
+                                Scaling)</p>
+                            <hr>
+                            <p class="m-t-15 text-muted">Dental Surgeon.PGT (BSMMU).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card user-card">
+                        <div class="card-header">
+                            <h4>Chembers</h4>
+                        </div>
+                        <div class="card-block">
+                            <div class="col-md-12">
+                                <div class="full-address">
+                                    <p class="m-t-15 text-muted">
+                                        Shabukta Dental Surgery, House- F/22, Zakir Hossain Road, Mohammadpur, Dhaka
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <P>Consulting Time</P>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>6:00 PM - 8:30 AM</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Consulting Day</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Fri,Sat,Sun,Mon,Tue,wed,Thu</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Consulting Fees</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>$400</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-md-12">
+                                <div class="full-address">
+                                    <p class="m-t-15 text-muted">
+                                        Shabukta Dental Surgery, House- F/22, Zakir Hossain Road, Mohammadpur, Dhaka
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <P>Consulting Time</P>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>6:00 PM - 8:30 AM</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Consulting Day</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Fri,Sat,Sun,Mon,Tue,wed,Thu</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Consulting Fees</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>$400</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card doctorcard">
+                        <img src="./assets/images/doctor-1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Dr. Atila Rahman</h5>
+                            <p class="card-text">Dental Surgen.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card doctorcard">
+                        <img src="./assets/images/doctor-2.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Dr. Atila Rahman</h5>
+                            <p class="card-text">Dental Surgen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card doctorcard">
+                        <img src="./assets/images/doctor-3.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Dr. Atila Rahman</h5>
+                            <p class="card-text">Dental Surgen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-3">
+                    <div>
+                        <h5 class="lookingDoctor">Looking for More Doctor?</h5>
+                        <a href="./doctor-list.html"><button type="button" class="btn btn-outline-primary">All
+                                Doctor List >></button></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- footer start -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-about">
+                        <div class="footer-logo">
+                            <a href="index.html"><img src="./assets/images/logo-white.svg" alt=""></a>
+                        </div>
+                        <p>E-Health Care is a dream that turned into a tech based startup, a business with a great
+                            purpose to create positive impacts in peoples' lives.</p>
+
+                        <!-- Add Social Icon -->
+                        <div>
+                            <a href="example.com" target="_blank"><span class="social-icons"><i class="fab fa-facebook"
+                                        style="color:#30629d;"></i></span></a>
+                            <a href="example.com" target="_blank"><span class="social-icons"><i class="fab fa-twitter"
+                                        style="color:#00A7E6;"></i></span></a>
+                            <a href="example.com" target="_blank"><span class="social-icons"><i class="fab fa-linkedin"
+                                        style="color:#0073B1;"></i></span></a>
+                            <a href="example.com" target="_blank"><span class="social-icons"><i class="fab fa-instagram"
+                                        style="color:#D32C86;"></i></span></a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 offset-lg-1 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6>Information</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">E-Sheba</a></li>
+                            <li><a href="#">Doctor Protal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6>Quick Link</h6>
+                        <ul>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Notice</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-12 col">
+                    <div class="footer-widget">
+                        <h6>Important</h6>
+                        <ul>
+                            <li><a href="#">Nikhil Premium</a></li>
+                            <li><a href="#">e-Sastho Plus</a></li>
+                            <li><a href="#">Senior Citizen Care</a></li>
+                            <li><a href="#">Personal & Family Care</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-copyright-text">
+                        <p>&copy; Copyright <script>
+                                document.write(new Date().getFullYear());
+                            </script> | <a href="index.html"> E-Health Care </a> | All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!-- Main JS -->
+    <!-- <script src="./assets/css/script.js"></script> -->
+</body>
+
+</html>

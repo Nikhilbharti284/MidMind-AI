@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64" />
+  <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif" />
+
+  <title>Home | E-Health Care</title>
+
+  <!-- Fonts & Icons -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    crossorigin="anonymous"
+  />
+
+  <!-- Tagify (if needed) -->
+  <script src="https://unpkg.com/@yaireo/tagify"></script>
+  <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+  <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css" />
+
+  <title>Virtual Consultation</title>
+
+  <style>
+    /* CSS Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #007bff;
+      --primary-dark: #0056b3;
+      --text-color: #333;
+      --light-gray: #f9f9f9;
+      --border-color: #ddd;
+      --transition-speed: 0.3s;
+      --border-radius: 8px;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--primary-color);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+    }
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+    h3 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    /* Enhanced Hero Section with Fluid Animations */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.5)
+      );
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0, 123, 255, 0.2), rgba(0, 123, 255, 0));
+      animation: gradientFlow 8s ease-in-out infinite alternate;
+    }
+
+    /* 
+       1) REPLACED: The static JPEG with an animated GIF
+       2) ADDED: A "bounce" scale animation to keep it interesting
+    */
+    .hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      animation: heroBounce 8s infinite alternate ease-in-out;
+      filter: brightness(0.9);
+      transition: filter 0.5s ease;
+    }
+
+    .hero-section:hover .hero-img {
+      filter: brightness(1);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideUpFade 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+    }
+
+    .hero-content h1 {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s forwards;
+    }
+
+    .hero-content p {
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 1s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+    }
+
+    /* Animation Keyframes */
+    @keyframes gradientFlow {
+      0% {
+        opacity: 0.4;
+        transform: translateX(-20px) translateY(-20px);
+      }
+      100% {
+        opacity: 0.8;
+        transform: translateX(20px) translateY(20px);
+      }
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hero bounce animation for the GIF */
+    @keyframes heroBounce {
+      0% {
+        transform: scale(1.0);
+      }
+      100% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Enhanced Features Section */
+    .features-section {
+      padding: 5rem 2rem;
+      background: var(--light-gray);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 
+       Hover animation on .feature images:
+       Slight scale on the image inside each feature
+    */
+    .feature img {
+      width: 100%;
+      height: 50%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+    .feature:hover img {
+      transform: scale(1.05);
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Enhanced Form Section */
+    .form-section {
+      padding: 5rem 2rem;
+      background: white;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+      outline: none;
+    }
+
+    /* Enhanced Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+      background: var(--primary-dark);
+    }
+
+    /* Enhanced Modal Styles */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-speed), visibility var(--transition-speed);
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform var(--transition-speed), opacity var(--transition-speed);
+    }
+
+    .modal.active .modal-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Enhanced Video Consultation Features */
+    .video-consultation-features-section {
+      padding: 5rem 2rem;
+      background: var(--light-gray);
+    }
+
+    .feature-item {
+      text-align: center;
+      background: #fff;
+      padding: 2rem;
+      margin: 1rem 0;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform var(--transition-speed);
+    }
+    .feature-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-link {
+      text-decoration: none;
+      color: var(--text-color);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-section {
+        height: 60vh;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-section {
+        padding: 3rem 1rem;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      .hero-section,
+      .features-section {
+        page-break-inside: avoid;
+      }
+
+      .modal {
+        display: none !important;
+      }
+    }
+
+    /* Accessibility Improvements */
+    :focus {
+      outline: 3px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    [role="button"],
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>        <!-- Navbar Start -->
+  <div class="navbar-shadow">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="logo" style="
+          font-family: Arial, sans-serif; 
+          font-size: 24px; 
+          font-weight: bold;
+          background: linear-gradient(to right, #337EFF, #8E5CFF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+      ">
+          MediMind AI
+      </div>
+      
+      
+          <!-- Toggler (for mobile view) -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <!-- Navbar Items -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+            <!-- Main Nav Links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="heart-checkup.html">Heart Checkup</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="Covid.html">Covid-19</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="about.html">About Us</a>
+              </li>
+            </ul>
+  
+            <!-- Search Bar -->
+            <form class="d-flex me-3">
+              <!-- Optionally limit the input width -->
+              <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
+                     style="max-width: 200px;">
+              <button class="btn btn-outline-success" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+  
+            <!-- Services Dropdown -->
+            <div class="dropdown me-3">
+              <button class="btn btn-danger dropdown-toggle" type="button" id="servicesDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Services
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                <li><a class="dropdown-item" href="cancer.html">Cancer</a></li>
+             
+              </ul>
+            </div>
+  
+            <!-- Dark Mode Toggle (Optional) -->
+            <button class="btn btn-secondary me-3" onclick="toggleTheme()">
+              <i class="fas fa-adjust"></i>
+            </button>
+  
+          
+  
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!-- Navbar End -->
+  
+  
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <!-- 1) Replaced the static image with an ANIMATED GIF link -->
+    <img
+      src="https://cdn.dribbble.com/userupload/26434877/file/original-14e9fb98d7146baae3b39c2fc5fd11bc.gif"
+      alt="Animated Healthcare GIF"
+      class="hero-img"
+    />
+    <div class="hero-content">
+      <h1>Virtual Consultation</h1>
+      <p>Connect with expert doctors from the comfort of your home.</p>
+      <a href="#form-section" class="btn">Get Started</a>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features-section">
+    <h2>Why Choose Us?</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <img
+          src="https://www.pim.com.pk/wp-content/uploads/2017/09/healthcare.jpg"
+          alt="Secure"
+        />
+        <h3>Secure</h3>
+        <p>
+          All consultations are private and encrypted. We maintain the highest
+          standards of medical privacy and data protection to ensure your
+          information stays confidential.
+        </p>
+      </div>
+
+      <div class="feature">
+        <img
+          src="https://www.william-russell.com/wp-content/uploads/Healthcare-professionalshaking-hands-William-Russell.jpg"
+          alt="Convenient"
+        />
+        <h3>Convenient</h3>
+        <p>
+          Talk to a doctor anytime, anywhere. Our platform is available 24/7,
+          allowing you to access healthcare services from the comfort of your
+          home.
+        </p>
+      </div>
+
+      <div class="feature">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkiC6MuFyJjt0qYj9xEReLq0TRqK9jRdS6koe9zDXheKm1jVy8_ZfZi-uTlLkITyJ7sf0&usqp=CAU"
+          alt="Affordable"
+        />
+        <h3>Affordable</h3>
+        <p>
+          Save money and time with virtual visits. Our transparent pricing and
+          efficient consultation process makes healthcare more accessible and
+          cost-effective.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="form-section" id="form-section">
+    <h2>Book Your Consultation</h2>
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="Full Name" required />
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email" required />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Phone Number" required />
+      </div>
+      <div class="form-group">
+        <select required>
+          <option value="" disabled selected>Select Specialization</option>
+          <option value="Cardiology"><i class="fas fa-heartbeat"></i> Cardiology</option>
+          <option value="Dermatology"><i class="fas fa-skin"></i> Dermatology</option>
+          <option value="Neurology"><i class="fas fa-brain"></i> Neurology</option>
+          <option value="Orthopedics"><i class="fas fa-bone"></i> Orthopedics</option>
+          <option value="Pediatrics"><i class="fas fa-baby"></i> Pediatrics</option>
+          <option value="Psychiatry"><i class="fas fa-head-side-brain"></i> Psychiatry</option>
+          <option value="Gynecology"><i class="fas fa-female"></i> Gynecology</option>
+          <option value="Oncology"><i class="fas fa-cancer"></i> Oncology (Cancer)</option>
+          <option value="Dentistry"><i class="fas fa-tooth"></i> Dentistry</option>
+          <option value="Endocrinology"><i class="fas fa-thyroid"></i> Endocrinology</option>
+          <option value="General Surgery"><i class="fas fa-cut"></i> General Surgery</option>
+          <option value="Gastroenterology"><i class="fas fa-stomach"></i> Gastroenterology</option>
+          <option value="Rheumatology"><i class="fas fa-joint"></i> Rheumatology</option>
+          <option value="Urology"><i class="fas fa-toilet-paper"></i> Urology</option>
+          <option value="Pulmonology"><i class="fas fa-lungs"></i> Pulmonology (Lungs)</option>
+          <option value="Hematology"><i class="fas fa-blood-drop"></i> Hematology (Blood Disorders)</option>
+          <option value="Nephrology"><i class="fas fa-kidney"></i> Nephrology (Kidneys)</option>
+          <option value="Infectious Diseases"><i class="fas fa-virus"></i> Infectious Diseases</option>
+          <option value="Allergology"><i class="fas fa-allergies"></i> Allergology</option>
+          <option value="Immunology"><i class="fas fa-shield-virus"></i> Immunology</option>
+          <option value="Rheumatology"><i class="fas fa-joint"></i> Rheumatology</option>
+          <option value="Geriatrics"><i class="fas fa-users"></i> Geriatrics (Elder Care)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <textarea placeholder="Describe your issue..." rows="5"></textarea>
+      </div>
+      <button type="submit" onclick="startConsultation()">Start Consultation</button>
+    </form>
+  </div>
+
+  <!-- Modal for Virtual Consultation -->
+  <div id="consultationModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Virtual Consultation In Progress...</h2>
+      <p>Connecting you to a doctor...</p>
+      <button onclick="startVirtualMeeting()">Join Meeting</button>
+    </div>
+  </div>
+
+  <!-- Video Consultation Features Section -->
+  <div class="video-consultation-features-section">
+    <h2>Features of Video Consultation</h2>
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-item">
+        <a href="real-time-video.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
+            alt="Real-Time Video"
+            height="100px"
+          />
+          <h3>Real-Time Video</h3>
+          <p>
+            Consult with doctors via high-quality video calls for instant
+            diagnosis and advice.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-item">
+        <a href="globalaccess.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3194/3194504.png"
+            alt="Global Access"
+            height="100px"
+          />
+          <h3>Global Access</h3>
+          <p>
+            Connect with healthcare professionals from anywhere in the world.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-item">
+        <a href="digitalprescriptions.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3208/3208788.png"
+            alt="Prescriptions"
+            height="100px"
+          />
+          <h3>Digital Prescriptions</h3>
+          <p>
+            Receive prescriptions digitally after your consultation, ready for
+            pharmacy use.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-item">
+        <a href="secureplatform.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2870/2870719.png"
+            alt="Secure Platform"
+            height="100px"
+          />
+          <h3>Secure Platform</h3>
+          <p>
+            All consultations are encrypted to ensure complete privacy and
+            security.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 5 -->
+      <div class="feature-item">
+        <a href="Availability.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2841/2841782.png"
+            alt="24/7 Availability"
+            height="100px"
+          />
+          <h3>24/7 Availability</h3>
+          <p>
+            Talk to a doctor anytime, day or night, whenever you need
+            assistance.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 6 -->
+      <div class="feature-item">
+        <a href="affordablerates.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3698/3698155.png"
+            alt="Affordable Rates"
+            height="100px"
+          />
+          <h3>Affordable Rates</h3>
+          <p>
+            Save money on travel and consultation fees with our cost-effective
+            service.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 7 -->
+      <div class="feature-item">
+        <a href="familycare.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/1006/1006654.png"
+            alt="Family Care"
+            height="100px"
+          />
+          <h3>Family Care</h3>
+          <p>
+            Include family members in consultations for comprehensive care.
+          </p>
+        </a>
+      </div>
+      <!-- Feature 8 -->
+      <div class="feature-item">
+        <a href="multilingualsupport.html" class="feature-link">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3079/3079268.png"
+            alt="Multilingual Support"
+            height="100px"
+          />
+          <h3>Multilingual Support</h3>
+          <p>
+            Communicate with doctors in the language you’re comfortable with.
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Details Section -->
+  <div id="feature-details" class="feature-details" style="display: none;">
+    <h3 id="feature-title"></h3>
+    <p id="feature-description"></p>
+  </div>
+
+  <!-- Footer Start -->
+  <footer class="footer fixed-footer">
+    <div class="container">
+      <div class="row gy-3 align-items-start">
+        <!-- About Section -->
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-about">
+            <div class="footer-logo mb-2">
+              <a href="index.html"
+                ><img
+                  src="./assets/images/logo-white.svg"
+                  alt="E-Health Care Logo"
+                  class="img-fluid"
+                  style="max-width: 120px;"
+              /></a>
+            </div>
+            <p style="font-size: 0.9rem;">
+              E-Health Care is a dream turned into a tech-based startup, creating
+              positive impacts in people's lives.
+            </p>
+            <div class="d-flex gap-3 mt-2">
+              <a href="example.com" target="_blank" class="social-icons"
+                ><i class="fab fa-facebook fa-lg" style="color: #30629d;"></i
+              ></a>
+              <a href="example.com" target="_blank" class="social-icons"
+                ><i class="fab fa-twitter fa-lg" style="color: #00A7E6;"></i
+              ></a>
+              <a href="example.com" target="_blank" class="social-icons"
+                ><i class="fab fa-linkedin fa-lg" style="color: #0073B1;"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/ni.kh.il__18/"
+                target="_blank"
+                class="social-icons"
+                ><i class="fab fa-instagram fa-lg" style="color: #D32C86;"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light">About Us</a></li>
+              <li><a href="#" class="text-light">Contact Us</a></li>
+              <li><a href="#" class="text-light">Doctor Portal</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light">My Account</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="row mt-3">
+        <div class="col-lg-12 text-center">
+          <div class="footer-copyright-text">
+            <p class="mb-0" style="font-size: 0.85rem;">
+              &copy; Copyright
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              |
+              <a href="index.html" class="text-primary">E-Health Care</a> |
+              All Rights Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+  <!-- JavaScript -->
+  <script>
+    // Function to start consultation (Trigger Modal)
+    function startConsultation() {
+      event.preventDefault(); // Prevent form submission
+      document.getElementById('consultationModal').style.display = 'block';
+    }
+
+    // Function to close the consultation modal
+    function closeModal() {
+      document.getElementById('consultationModal').style.display = 'none';
+    }
+
+    // Function to simulate a video meeting link or redirect to a real meeting room
+    function startVirtualMeeting() {
+      // Simulate a redirection to a virtual meeting platform (e.g., Zoom, Google Meet, etc.)
+      window.location.href = 'https://meet.google.com/xyz-abc-def'; // Replace with a real meeting link
+    }
+
+    // Scroll to the specified feature section
+    function scrollToFeature(featureId) {
+      const element = document.getElementById(featureId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Define feature details
+    const features = {
+      'real-time-video': {
+        title: 'Real-Time Video',
+        description:
+          'Experience seamless video consultations for instant diagnosis and professional medical advice.',
+      },
+      'global-access': {
+        title: 'Global Access',
+        description:
+          'Connect with healthcare professionals from anywhere in the world for remote consultation.',
+      },
+      // Add more features if needed
+    };
+
+    // Show feature details
+    function showFeatureDetails(featureId) {
+      const feature = features[featureId];
+      if (feature) {
+        document.getElementById('feature-title').innerText = feature.title;
+        document.getElementById('feature-description').innerText =
+          feature.description;
+        document.getElementById('feature-details').style.display = 'block';
+      }
+    }
+
+    // Hover effects
+    function hoverEffect(element) {
+      element.style.transform = 'scale(1.1)';
+      element.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
+    }
+
+    function removeHoverEffect(element) {
+      element.style.transform = 'scale(1)';
+      element.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    }
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFZQ5Y1Gpc58rNUPmGH7v1LaN2f0XK06kN1zZrE/OfvL8Z2CfXzZfL9E7"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

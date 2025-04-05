@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heart Checkup | E-Health Care</title>
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+  <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+  <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+  <!-- Google Font CDN -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <!-- Custom CSS -->
+  <style>
+    /* Enhanced Base Styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    /* Improved Navbar */
+    .navbar {
+        padding: 0.8rem 0;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+    }
+
+    .navbar-brand img {
+        width: 180px;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover img {
+        transform: scale(1.05);
+    }
+
+    .nav-link {
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 1rem !important;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #dc3545;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    /* Enhanced Hero Section */
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), url('./assets/images/heart-bg.jpg') center/cover;
+        padding: 100px 0;
+        position: relative;
+    }
+
+    .hero-section h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-section .lead {
+        font-size: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    /* Modern Form Styling */
+    .heart-page-section {
+        padding: 4rem 0;
+    }
+
+    .card {
+        border-radius: 15px;
+        border: none;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background: #dc3545;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 15px 15px 0 0 !important;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+    }
+
+    .form-check-input:checked {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    /* Custom Radio & Checkbox */
+    .form-check-label {
+        margin-left: 0.5rem;
+    }
+
+    .form-check-input {
+        width: 1.2em;
+        height: 1.2em;
+        margin-top: 0.2em;
+    }
+
+    /* Enhanced Button */
+    .btn-primary {
+        background: #dc3545;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: #bb2d3b;
+        transform: translateY(-2px);
+    }
+
+    /* Progress Bar Animation */
+    .progress-custom {
+        height: 8px;
+        border-radius: 4px;
+        overflow: visible;
+    }
+
+    .progress-bar {
+        background: #dc3545;
+        position: relative;
+        overflow: visible;
+    }
+
+    .progress-bar::after {
+        content: '';
+        position: absolute;
+        right: -10px;
+        top: -3px;
+        width: 15px;
+        height: 15px;
+        background: #dc3545;
+        border-radius: 50%;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+        background: linear-gradient(135deg, #ff6b6b, #dc3545);
+        border-radius: 15px;
+        padding: 2.5rem !important;
+        color: white;
+        box-shadow: 0 10px 30px rgba(220, 53, 69, 0.2);
+    }
+
+    .newsletter h5 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Dark Mode Enhancements */
+    .dark-mode .card {
+        background: #2d2d2d;
+        border: 1px solid #3d3d3d;
+    }
+
+    .dark-mode .form-control, .dark-mode .form-select {
+        background: #333;
+        border-color: #444;
+        color: #fff;
+    }
+
+    .dark-mode .form-label {
+        color: #e0e0e0;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 60px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-section .lead {
+            font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+            width: 140px;
+        }
+
+        .newsletter {
+            padding: 1.5rem !important;
+        }
+    }
+
+    /* Hover Animations */
+    .btn, .form-control, .card {
+        transition: all 0.3s ease;
+    }
+
+    /* Enhanced Footer */
+    .footer {
+        background: #1a1a1a !important;
+        padding: 3rem 0 1rem;
+    }
+
+    .footer h6 {
+        color: #dc3545;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .footer a {
+        color: #adb5bd;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: #dc3545;
+    }
+
+    .social-icons a {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        background: #dc3545;
+        transform: translateY(-3px);
+    }
+</style>
+</head>
+
+<body>
+   
+  <!-- Navbar Start -->
+<div style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background: white; position: fixed; width: 100%; top: 0; z-index: 1000;">
+  <div style="max-width: 1200px; margin: auto; padding: 10px;">
+      <nav style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+          
+          <!-- Logo -->
+          <div style="
+              font-family: Arial, sans-serif; 
+              font-size: 24px; 
+              font-weight: bold;
+              background: linear-gradient(to right, #337EFF, #8E5CFF);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;">
+              MediMind AI
+          </div>
+
+          <!-- Toggler Button for Mobile -->
+          <button id="menu-btn" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;" 
+              onclick="toggleMenu()">
+              ☰
+          </button>
+
+          <!-- Navbar Items -->
+          <div id="navbar-menu" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; transition: all 0.3s ease-in-out;">
+              <a href="index.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Home</a>
+              <a href="heart-checkup.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Heart Checkup</a>
+              <a href="Covid.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">Covid-19</a>
+              <a href="about.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">About Us</a>
+
+              <!-- Search Bar -->
+              <form style="display: flex; align-items: center;">
+                  <input type="search" placeholder="Search..." aria-label="Search"
+                         style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; max-width: 200px; transition: 0.3s;" 
+                         onfocus="this.style.border='1px solid #337EFF'" onblur="this.style.border='1px solid #ccc'">
+                  <button type="submit" style="background: green; color: white; padding: 8px 12px; border: none; margin-left: 5px; cursor: pointer; border-radius: 4px;">
+                      🔍
+                  </button>
+              </form>
+
+              <!-- Services Dropdown -->
+              <div style="position: relative;">
+                  <button onclick="toggleDropdown()" style="background: red; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                      Services ⬇
+                  </button>
+                  <ul id="servicesDropdown" style="display: none; position: absolute; background: white; list-style: none; padding: 10px; margin: 0; border-radius: 4px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                      <li><a href="cancer.html" style="text-decoration: none; color: black; display: block; padding: 5px 10px;">Cancer</a></li>
+                  </ul>
+              </div>
+
+              <!-- Dark Mode Toggle -->
+              <button onclick="toggleTheme()" style="background: gray; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                  🌙
+              </button>
+          </div>
+      </nav>
+  </div>
+</div>
+<!-- Navbar End -->
+
+<!-- JavaScript for Dropdown & Mobile Menu -->
+<script>
+  function toggleDropdown() {
+      var dropdown = document.getElementById("servicesDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  function toggleMenu() {
+      var menu = document.getElementById("navbar-menu");
+      var button = document.getElementById("menu-btn");
+      if (menu.style.display === "none" || menu.style.display === "") {
+          menu.style.display = "flex";
+          button.innerHTML = "✖"; // Change to close icon
+      } else {
+          menu.style.display = "none";
+          button.innerHTML = "☰"; // Change to menu icon
+      }
+  }
+
+  function toggleTheme() {
+      var body = document.body;
+      var nav = document.querySelector("div");
+      var links = document.querySelectorAll("a");
+      if (body.style.background === "black") {
+          body.style.background = "white";
+          body.style.color = "black";
+          nav.style.background = "white";
+          links.forEach(link => link.style.color = "black");
+      } else {
+          body.style.background = "black";
+          body.style.color = "white";
+          nav.style.background = "#222";
+          links.forEach(link => link.style.color = "white");
+      }
+  }
+
+  // Responsive Menu Button Show/Hide
+  window.onload = function () {
+      var menu = document.getElementById("menu-btn");
+      var navbar = document.getElementById("navbar-menu");
+      if (window.innerWidth <= 768) {
+          menu.style.display = "block";
+          navbar.style.display = "none";
+      }
+  };
+  window.onresize = function () {
+      var menu = document.getElementById("menu-btn");
+      var navbar = document.getElementById("navbar-menu");
+      if (window.innerWidth <= 768) {
+          menu.style.display = "block";
+          navbar.style.display = "none";
+      } else {
+          menu.style.display = "none";
+          navbar.style.display = "flex";
+      }
+  };
+</script>
+
+  <!-- Log out Popup -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-wrapper border-0">
+        <div class="modal-top d-flex align-items-center">
+          <i class="danger-icon fas fa-exclamation-triangle fa-2x text-danger me-3"></i>
+          <div>
+            <h5 class="modal-heading">Log out from this session</h5>
+            <p class="modal-description">Are you sure you want to log out? All your data will be removed. You have to sign
+              in again.</p>
+          </div>
+        </div>
+        <div class="modal-bottom text-end">
+          <button type="button" class="btn btn-outline-primary mx-3" data-bs-dismiss="modal">Cancel</button>
+          <a href="index.html">
+            <button type="button" class="btn btn-danger">Log out</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Hero Section -->
+<section style="
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 50vh; 
+    text-align: center; 
+    background: 
+                url('https://nutritionsource.hsph.harvard.edu/wp-content/uploads/2024/11/AdobeStock_321830101.jpeg') center/cover no-repeat;
+    color: white;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    animation: fadeIn 2s ease-in-out;">
+  
+  <!-- Dark Overlay for Better Readability -->
+  <div style="
+      position: absolute; 
+      top: 0; left: 0; width: 100%; height: 100%; 
+      background: rgba(0, 0, 0, 0.5);
+      animation: fadeOverlay 2s ease-in-out;">
+  </div>
+
+  <div style="max-width: 800px; padding: 20px; position: relative; z-index: 2;">
+    <h2 style="font-size: 3rem; margin-bottom: 10px; animation: zoomIn 1.5s ease-in-out;">
+      Heart Checkup
+    </h2>
+    <p style="font-size: 1.2rem; margin-bottom: 20px; animation: fadeInUp 1.5s ease-in-out;">
+      Ensure your heart is in its best shape. Get a quick and reliable checkup now!
+    </p>
+
+    <a href="#checkupForm" style="
+      display: inline-block; 
+      background: red; 
+      color: white; 
+      padding: 12px 24px; 
+      font-size: 1.2rem;
+      text-decoration: none; 
+      border-radius: 6px;
+      transition: 0.3s ease-in-out;
+      animation: fadeInUp 1.8s ease-in-out;" 
+      onmouseover="this.style.background='darkred'" 
+      onmouseout="this.style.background='red'">
+      Get Started
+    </a>
+  </div>
+</section>
+
+<!-- CSS Animations -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOverlay {
+    from { opacity: 0; }
+    to { opacity: 0.5; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- JavaScript for Dark Mode -->
+<script>
+function toggleTheme() {
+  var body = document.body;
+  var hero = document.querySelector("section");
+  if (body.style.background === "black") {
+      hero.style.background = "linear-gradient(to right, #337EFF, #8E5CFF), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3-NKUZR9NuLWjKYOnMLWr0uuvYaeGTh6QsvzBdBPZ6zacJqhPG5dXmnVMFENW-oUk0sk&usqp=CAU') center/cover no-repeat";
+  } else {
+      hero.style.background = "#222";
+  }
+}
+</script>
+
+
+  <!-- Heart Checkup Form Section -->
+  <section class="heart-page-section bg-light" id="checkupForm">
+    <div class="container">
+      <div class="text-center mb-4">
+        <div class="d-flex justify-content-center align-items-center">
+          <h2 class="mx-3">Heart</h2>
+          <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_S0psCs.json" background="transparent"
+            speed="1" style="width: 200px; height: 150px;" loop autoplay></lottie-player>
+          <h2 class="mx-3">Checkup</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card border-primary shadow">
+            <div class="card-body">
+              <form class="row g-3" id="heartForm">
+                <div class="col-md-6">
+                  <label class="form-label">Gender</label>
+                  <select class="form-select">
+                    <option selected disabled>Select gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Age</label>
+                  <input type="number" placeholder="Insert age" class="form-control">
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Fasting blood sugar</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="fbs">
+                    <label class="form-check-label">Greater than 120 mg/dl</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="fbs" checked>
+                    <label class="form-check-label">Less than 120 mg/dl</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Exercise induced angina</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exang" checked>
+                    <label class="form-check-label">Yes</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exang">
+                    <label class="form-check-label">No</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Resting electrocardiographic results</label>
+                  <select class="form-select">
+                    <option selected disabled>Choose...</option>
+                    <option value="1">Probable/definite left ventricular hypertrophy</option>
+                    <option value="2">Normal</option>
+                    <option value="3">ST-T wave abnormality</option>
+                  </select>
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label">Resting blood pressure</label>
+                  <input type="number" placeholder="mm Hg" class="form-control">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Chest pain type</label>
+                  <select class="form-select">
+                    <option value="1">Asymptomatic</option>
+                    <option value="2">Atypical angina</option>
+                    <option value="3">Non-anginal pain</option>
+                    <option value="4">Typical angina</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Heart rate achieved</label>
+                  <input type="number" placeholder="Maximum value" class="form-control">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Blood disorder (Thalassemia)</label>
+                  <select class="form-select">
+                    <option selected disabled>Choose...</option>
+                    <option value="1">Fixed defect</option>
+                    <option value="2">Normal blood flow</option>
+                    <option value="3">Reversible defect</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Slope of peak exercise ST segment</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="slope" value="1">
+                    <label class="form-check-label">Downsloping</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="slope" value="2" checked>
+                    <label class="form-check-label">Flat</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="slope" value="3">
+                    <label class="form-check-label">Upsloping</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Major vessels (0-3) colored by fluoroscopy</label><br>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ca" value="0">
+                    <label class="form-check-label">0</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ca" value="1" checked>
+                    <label class="form-check-label">1</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ca" value="2">
+                    <label class="form-check-label">2</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ca" value="3">
+                    <label class="form-check-label">3</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Cholesterol measurement</label>
+                  <input type="number" placeholder="mg/dl" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">ST depression induced by exercise relative to rest</label>
+                  <input type="number" placeholder="ST depression value" class="form-control">
+                </div>
+                <div class="col-12 text-center">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <!-- Progress Bar -->
+                <div class="col-12">
+                  <div class="progress progress-custom mt-3" id="formProgress" style="display: none;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Subscription -->
+  <section class="container">
+    <div class="newsletter text-center">
+      <h5>Subscribe to our Newsletter</h5>
+      <form class="d-flex justify-content-center mt-3">
+        <input type="email" class="form-control w-50" placeholder="Enter your email">
+        <button class="btn btn-danger ms-2" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Start -->
+  <footer class="footer mt-5 py-4 bg-dark text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="footer-about">
+            <div class="footer-logo mb-2">
+              <a href="index.html"><img src="./assets/images/logo-white.svg" alt="Logo"></a>
+            </div>
+            <p>E-Health Care is a tech-based startup with a mission to create positive impacts in people's lives.</p>
+            <div class="social-icons">
+              <a href="https://facebook.com" target="_blank" class="me-2"><i class="fab fa-facebook-f"
+                  style="color:#30629d;"></i></a>
+              <a href="https://twitter.com" target="_blank" class="me-2"><i class="fab fa-twitter"
+                  style="color:#00A7E6;"></i></a>
+              <a href="https://linkedin.com" target="_blank" class="me-2"><i class="fab fa-linkedin"
+                  style="color:#0073B1;"></i></a>
+              <a href="https://instagram.com" target="_blank" class="me-2"><i class="fab fa-instagram"
+                  style="color:#D32C86;"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 offset-lg-1 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6>Information</h6>
+            <ul class="list-unstyled">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">E-Sheba</a></li>
+              <li><a href="#">Doctor Portal</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-6">
+          <div class="footer-widget">
+            <h6>Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Notice</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-12 col-12">
+          <div class="footer-widget">
+            <h6>Important</h6>
+            <ul class="list-unstyled">
+              <li><a href="#">e-Sastho Premium</a></li>
+              <li><a href="#">e-Sastho Plus</a></li>
+              <li><a href="#">Senior Citizen Care</a></li>
+              <li><a href="#">Personal & Family Care</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-12 text-center">
+          <p>&copy; <script>
+              document.write(new Date().getFullYear());
+            </script> | <a href="index.html" class="text-decoration-none text-light">E-Health Care</a> | All Rights Reserved</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+  <!-- Back-to-Top Button -->
+  <button class="back-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <!-- Custom JS -->
+  <script>
+    // Dark Mode Toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Back-to-Top Button
+    window.onscroll = function () {
+      document.querySelector('.back-to-top').style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Form Submission with Progress Bar
+    document.getElementById('heartForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let progressBar = document.getElementById('formProgress');
+      progressBar.style.display = 'block';
+      setTimeout(() => {
+        progressBar.style.display = 'none';
+        alert('Form Submitted Successfully!');
+        this.reset();
+      }, 3000);
+    });
+  </script>
+</body>
+
+</html>

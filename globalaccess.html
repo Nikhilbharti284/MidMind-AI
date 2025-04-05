@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Access to Healthcare</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <title>Home | E-Health Care</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Articles Section */
+.articles {
+    padding: 3rem 1rem;
+    background-color: #fff;
+}
+
+.articles h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #4CAF50;
+    font-size: 2rem;
+    animation: fadeIn 1s ease-in-out 0.5s;
+}
+
+.article-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: cardAppear 0.6s ease-in-out;
+}
+
+.article-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes cardAppear {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.article-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.article-card img:hover {
+    filter: brightness(0.85);
+    transform: scale(1.02);
+}
+
+.article-card .card-body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.article-card .card-body h5 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 1s ease-in-out 0.8s;
+}
+
+.article-card .card-body p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.article-card .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.article-card .btn:hover {
+    background-color: #388E3C;
+    transform: scale(1.05);
+}
+
+/* Footer Section */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    animation: fadeIn 1s ease-in-out 1s;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #77dd77;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background-color: #4CAF50;
+    color: white;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #333;
+    color: white;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .article-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+        
+    </style>
+</head>
+<body>  <!-- Navbar Start -->
+    <div style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background: white; position: fixed; width: 100%; top: 0; z-index: 1000;">
+      <div style="max-width: 1200px; margin: auto; padding: 10px;">
+          <nav style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+              
+              <!-- Logo -->
+              <div style="
+                  font-family: Arial, sans-serif; 
+                  font-size: 24px; 
+                  font-weight: bold;
+                  background: linear-gradient(to right, #337EFF, #8E5CFF);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;">
+                  MediMind AI
+              </div>
+    
+              <!-- Toggler Button for Mobile -->
+              <button id="menu-btn" style="background: none; border: none; font-size: 24px; cursor: pointer; display: none;" 
+                  onclick="toggleMenu()">
+                  ☰
+              </button>
+    
+              <!-- Navbar Items -->
+              <div id="navbar-menu" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; transition: all 0.3s ease-in-out;">
+                  <a href="index.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Home</a>
+                  <a href="heart-checkup.html" style="text-decoration: none; color: black; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#337EFF'" onmouseout="this.style.color='black'">Heart Checkup</a>
+                  <a href="Covid.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">Covid-19</a>
+                  <a href="about.html" style="text-decoration: none; color: red; font-size: 16px; transition: 0.3s;" onmouseover="this.style.color='#8E5CFF'" onmouseout="this.style.color='red'">About Us</a>
+    
+                  <!-- Search Bar -->
+                  <form style="display: flex; align-items: center;">
+                      <input type="search" placeholder="Search..." aria-label="Search"
+                             style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; max-width: 200px; transition: 0.3s;" 
+                             onfocus="this.style.border='1px solid #337EFF'" onblur="this.style.border='1px solid #ccc'">
+                      <button type="submit" style="background: green; color: white; padding: 8px 12px; border: none; margin-left: 5px; cursor: pointer; border-radius: 4px;">
+                          🔍
+                      </button>
+                  </form>
+    
+                  <!-- Services Dropdown -->
+                  <div style="position: relative;">
+                      <button onclick="toggleDropdown()" style="background: red; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                          Services ⬇
+                      </button>
+                      <ul id="servicesDropdown" style="display: none; position: absolute; background: white; list-style: none; padding: 10px; margin: 0; border-radius: 4px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                          <li><a href="cancer.html" style="text-decoration: none; color: black; display: block; padding: 5px 10px;">Cancer</a></li>
+                      </ul>
+                  </div>
+    
+                  <!-- Dark Mode Toggle -->
+                  <button onclick="toggleTheme()" style="background: gray; color: white; padding: 8px 12px; border: none; cursor: pointer; border-radius: 4px;">
+                      🌙
+                  </button>
+              </div>
+          </nav>
+      </div>
+    </div>
+    <!-- Navbar End -->
+    
+    <!-- JavaScript for Dropdown & Mobile Menu -->
+    <script>
+      function toggleDropdown() {
+          var dropdown = document.getElementById("servicesDropdown");
+          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      }
+    
+      function toggleMenu() {
+          var menu = document.getElementById("navbar-menu");
+          var button = document.getElementById("menu-btn");
+          if (menu.style.display === "none" || menu.style.display === "") {
+              menu.style.display = "flex";
+              button.innerHTML = "✖"; // Change to close icon
+          } else {
+              menu.style.display = "none";
+              button.innerHTML = "☰"; // Change to menu icon
+          }
+      }
+    
+      function toggleTheme() {
+          var body = document.body;
+          var nav = document.querySelector("div");
+          var links = document.querySelectorAll("a");
+          if (body.style.background === "black") {
+              body.style.background = "white";
+              body.style.color = "black";
+              nav.style.background = "white";
+              links.forEach(link => link.style.color = "black");
+          } else {
+              body.style.background = "black";
+              body.style.color = "white";
+              nav.style.background = "#222";
+              links.forEach(link => link.style.color = "white");
+          }
+      }
+    
+      // Responsive Menu Button Show/Hide
+      window.onload = function () {
+          var menu = document.getElementById("menu-btn");
+          var navbar = document.getElementById("navbar-menu");
+          if (window.innerWidth <= 768) {
+              menu.style.display = "block";
+              navbar.style.display = "none";
+          }
+      };
+      window.onresize = function () {
+          var menu = document.getElementById("menu-btn");
+          var navbar = document.getElementById("navbar-menu");
+          if (window.innerWidth <= 768) {
+              menu.style.display = "block";
+              navbar.style.display = "none";
+          } else {
+              menu.style.display = "none";
+              navbar.style.display = "flex";
+          }
+      };
+    </script>
+
+<!-- Latest Articles Section -->
+<section class="articles">
+    <h2>Latest Articles</h2>
+    <div class="container">
+        <div class="row g-4">
+            <!-- Article 1 -->
+            <div class="col-md-4">
+                <div class="article-card">
+                    <img src="https://etimg.etb2bimg.com/thumb/msid-90622190,imgsize-62758,width-1200,height=765,overlay-ethealth/health-it/the-changing-landscape-of-digital-healthcare-in-india.jpg" alt="Technology in Healthcare">
+                    <div class="card-body">
+                        <h5>How Technology is Revolutionizing Healthcare</h5>
+                        <p>Technology has transformed healthcare in unprecedented ways, making it more accessible, efficient, and effective. From AI to wearable devices, innovations are reshaping how medical services are delivered and received.</p>
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#articleModal1">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="col-md-4">
+                <div class="article-card">
+                    <img src="https://cdn.expresshealthcare.in/wp-content/uploads/2020/12/17103921/Gangwal-750x400.jpg" alt="Challenges in Healthcare">
+                    <div class="card-body">
+                        <h5>Global Challenges in Healthcare Delivery</h5>
+                        <p>Healthcare delivery worldwide faces significant challenges, from resource disparities to infrastructure gaps. Addressing these issues is essential to achieving equitable healthcare access.</p>
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#articleModal2">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="col-md-4">
+                <div class="article-card">
+                    <img src="data:image/jpeg;base64,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" alt="Innovative Solutions">
+                    <div class="card-body">
+                        <h5>Innovative Solutions to Combat Diseases</h5>
+                        <p>Advancements in medical science and technology are paving the way for innovative solutions to combat diseases effectively and efficiently worldwide.</p>
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#articleModal3">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal for Article 1 -->
+<div class="modal fade" id="articleModal1" tabindex="-1" aria-labelledby="articleModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="articleModal1Label">How Technology is Revolutionizing Healthcare</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Telemedicine and Remote Care:</strong> Telemedicine has become a cornerstone of modern healthcare, especially in remote and underserved areas.</p>
+                <p><strong>AI in Diagnostics:</strong> AI algorithms enhance early disease detection for conditions like cancer, diabetes, and heart disease.</p>
+                <p><strong>Wearable Technology:</strong> Devices monitor vital signs, empowering individuals to take control of their health.</p>
+                <p><strong>Robotics in Surgery:</strong> Robotic-assisted surgeries improve precision and reduce recovery time.</p>
+                <p><strong>Conclusion:</strong> Technology is bridging gaps and improving outcomes, heralding a future of patient-centric healthcare.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 2 -->
+<div class="modal fade" id="articleModal2" tabindex="-1" aria-labelledby="articleModal2Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="articleModal2Label">Global Challenges in Healthcare Delivery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Resource Disparities:</strong> Many regions lack healthcare professionals and facilities.</p>
+                <p><strong>Infrastructure Gaps:</strong> Rural areas often experience delays in treatment.</p>
+                <p><strong>Rising Costs:</strong> Increasing healthcare expenses limit access to quality care.</p>
+                <p><strong>Conclusion:</strong> Global collaboration and investment are crucial to overcoming these challenges.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Article 3 -->
+<div class="modal fade" id="articleModal3" tabindex="-1" aria-labelledby="articleModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="articleModal3Label">Innovative Solutions to Combat Diseases</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Gene Therapy:</strong> A promising solution for genetic disorders like cystic fibrosis.</p>
+                <p><strong>CRISPR Technology:</strong> Revolutionizing disease management with precise gene editing.</p>
+                <p><strong>Immunotherapy:</strong> A breakthrough in cancer treatment with fewer side effects.</p>
+                <p><strong>Conclusion:</strong> Innovative solutions are redefining disease treatment and management globally.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- footer start -->
+    <footer class="footer fixed-footer">
+        <div class="container">
+            <div class="row gy-3 align-items-start">
+
+                <!-- About Section -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-about">
+                        <div class="footer-logo mb-2">
+                            <a href="index.html"><img src="./assets/images/logo-white.svg" alt="E-Health Care Logo"
+                                    class="img-fluid" style="max-width: 120px;"></a>
+                        </div>
+                        <p style="font-size: 0.9rem;">E-Health Care is a dream turned into a tech-based startup,
+                            creating positive impacts in people's lives.</p>
+                        <div class="d-flex gap-3 mt-2">
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-facebook fa-lg"
+                                    style="color:#30629d;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-twitter fa-lg"
+                                    style="color:#00A7E6;"></i></a>
+                            <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-linkedin fa-lg"
+                                    style="color:#0073B1;"></i></a>
+                            <a href="https://www.instagram.com/ni.kh.il__18/" target="_blank" class="social-icons"><i
+                                    class="fab fa-instagram fa-lg" style="color:#D32C86;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">About Us</a></li>
+                            <li><a href="#" class="text-light">Contact Us</a></li>
+                            <li><a href="#" class="text-light">Doctor Portal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="col-lg-2 col-md-3 col-6">
+                    <div class="footer-widget">
+                        <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-light">My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="row mt-3">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-copyright-text">
+                        <p class="mb-0" style="font-size: 0.85rem;">&copy; Copyright
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> | <a href="index.html" class="text-primary">E-Health Care</a> | All Rights
+                            Reserved
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

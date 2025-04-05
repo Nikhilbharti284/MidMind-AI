@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About Us Section</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+     
+
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/gif" sizes="64x64">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png" type="image/gif">
+
+    <title>Home | E-Health Care</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+    <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+
+    <style>
+        /* Custom CSS for About Us Section */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #aboutUs {
+            background: #f9f9f9;
+            padding: 60px 0;
+        }
+
+        #aboutUs h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #aboutUs p {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        #aboutUs img {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #aboutUs .list-group-item {
+            border: none;
+            font-size: 16px;
+            padding-left: 0;
+        }
+
+        #aboutUs .btn-primary {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        #aboutUs .btn-primary:hover {
+            background: linear-gradient(90deg, #0056b3, #007bff);
+            transform: scale(1.05);
+        }
+
+        #aboutUs .fa-3x {
+            margin-bottom: 15px;
+        }
+
+        #aboutUs .text-primary {
+            color: #007bff !important;
+        }
+
+        #aboutUs .text-success {
+            color: #28a745 !important;
+        }
+
+        #aboutUs .list-group-item i {
+            margin-right: 10px;
+        }
+
+/* Custom CSS Styles */
+:root {
+  --primary: #2A5C82;
+  --secondary: #5BA4E6;
+  --accent: #FF6B6B;
+}
+
+/* Animation Enhancements */
+.animate__animated {
+  --animate-duration: 0.8s;
+}
+
+/* Telemedicine Section Enhancements */
+#telemedicine {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+#telemedicine img {
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+#telemedicine img:hover {
+  transform: scale(1.02);
+}
+
+#telemedicine li {
+  padding: 12px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Appointment Cards */
+.card {
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 15px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-title i {
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+
+/* Health Monitoring */
+#healthMonitoring {
+  background: linear-gradient(45deg, #E8F4FD 0%, #F9FBFD 100%);
+}
+
+#healthMonitoring .border {
+  border: none !important;
+  background: white;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+#healthMonitoring .border:hover {
+  box-shadow: 0 8px 16px rgba(42,92,130,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #telemedicine .row {
+    flex-direction: column-reverse;
+  }
+  
+  #healthMonitoring .col-md-3 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Modal Customization */
+.modal-content {
+  border-radius: 15px;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* Chart Containers */
+canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar Start -->
+    <div class="navbar-shadow">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="logo" style="
+              font-family: Arial, sans-serif; 
+              font-size: 24px; 
+              font-weight: bold;
+              background: linear-gradient(to right, #337EFF, #8E5CFF);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+          ">
+              MediMind AI
+          </div>
+          
+          
+              <!-- Toggler (for mobile view) -->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+      
+              <!-- Navbar Items -->
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+                <!-- Main Nav Links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="heart-checkup.html">Heart Checkup</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-danger" href="Covid.html">Covid-19</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-danger" href="about.html">About Us</a>
+                  </li>
+                </ul>
+      
+                <!-- Search Bar -->
+                <form class="d-flex me-3">
+                  <!-- Optionally limit the input width -->
+                  <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
+                         style="max-width: 200px;">
+                  <button class="btn btn-outline-success" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+      
+                <!-- Services Dropdown -->
+                <div class="dropdown me-3">
+                  <button class="btn btn-danger dropdown-toggle" type="button" id="servicesDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Services
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                    <li><a class="dropdown-item" href="cancer.html">Cancer</a></li>
+                 
+                  </ul>
+                </div>
+      
+                <!-- Dark Mode Toggle (Optional) -->
+                <button class="btn btn-secondary me-3" onclick="toggleTheme()">
+                  <i class="fas fa-adjust"></i>
+                </button>
+      
+              
+      
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Navbar End -->
+ 
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+
+
+
+
+   <!-- Telemedicine Section Start -->
+   <section id="telemedicine" class="py-5">
+    <div class="container">
+        <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">Virtual Consultations</h2>
+        <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">
+            Connect with certified doctors through secure video consultations
+        </p>
+
+        <div class="row">
+            <!-- Image Section -->
+            <div class="col-md-6 animate__animated animate__zoomIn">
+                <img src="https://www.william-russell.com/wp-content/uploads/Healthcare-professionalshaking-hands-William-Russell.jpg" 
+                     alt="Telemedicine" 
+                     class="img-fluid rounded shadow-lg"
+                     loading="lazy" />
+            </div>
+
+            <!-- Content Section -->
+            <div class="col-md-6 animate__animated animate__fadeInRight">
+                <h4 class="text-success fw-bold">How It Works</h4>
+                <ul class="list-unstyled text-muted">
+                    <li class="mb-3"><i class="fas fa-video me-2 text-primary"></i>Secure video conferencing platform</li>
+                    <li class="mb-3"><i class="fas fa-clock me-2 text-primary"></i>24/7 availability</li>
+                    <li class="mb-3"><i class="fas fa-prescription me-2 text-primary"></i>Digital prescriptions</li>
+                </ul>
+                
+                <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#consultModal">
+                    Schedule Consultation <i class="fas fa-calendar-check ms-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Telemedicine Section End -->
+
+<!-- Appointment Booking Section Start -->
+<section id="appointments" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">Book Appointments</h2>
+        <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">
+            Schedule your in-person or virtual appointments instantly
+        </p>
+
+        <div class="row g-4">
+            <div class="col-md-4 animate__animated animate__fadeInUp">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary"><i class="fas fa-hospital me-2"></i>In-Clinic</h5>
+                        <p class="card-text">Book physical appointments with specialists</p>
+                        <button class="btn btn-outline-primary">Find Clinics</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 animate__animated animate__fadeInUp">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary"><i class="fas fa-flask me-2"></i>Lab Tests</h5>
+                        <p class="card-text">Schedule diagnostic tests &amp; checkups</p>
+                        <button class="btn btn-outline-primary">Book Tests</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 animate__animated animate__fadeInUp">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary"><i class="fas fa-ambulance me-2"></i>Emergency</h5>
+                        <p class="card-text">Immediate medical assistance</p>
+                        <button class="btn btn-outline-danger">Emergency Help</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Appointment Booking Section End -->
+<!-- Health Monitoring Section Start -->
+<section id="healthMonitoring" style="padding: 4rem 1rem; background: #f9fafd; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1200px; margin: auto;">
+      <h2 style="text-align: center; color: #007BFF; font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700;">Health Tracking</h2>
+      <p style="text-align: center; color: #6c757d; font-size: 1.1rem; margin-bottom: 3rem;">
+        Monitor your vital signs and health metrics
+      </p>
+  
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+        <!-- Heart Rate -->
+        <div style="flex: 1 1 220px; text-align: center; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          <i class="fas fa-heartbeat" style="font-size: 2rem; color: #dc3545; margin-bottom: 1rem;"></i>
+          <h5 style="font-size: 1.2rem; margin-bottom: 1rem;">Heart Rate</h5>
+          <canvas id="heartRateChart" width="100" height="100"></canvas>
+        </div>
+  
+        <!-- Weight -->
+        <div style="flex: 1 1 220px; text-align: center; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          <i class="fas fa-weight" style="font-size: 2rem; color: #17a2b8; margin-bottom: 1rem;"></i>
+          <h5 style="font-size: 1.2rem; margin-bottom: 1rem;">Weight</h5>
+          <canvas id="weightChart" width="100" height="100"></canvas>
+        </div>
+  
+        <!-- Activity -->
+        <div style="flex: 1 1 220px; text-align: center; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          <i class="fas fa-running" style="font-size: 2rem; color: #28a745; margin-bottom: 1rem;"></i>
+          <h5 style="font-size: 1.2rem; margin-bottom: 1rem;">Activity</h5>
+          <canvas id="activityChart" width="100" height="100"></canvas>
+        </div>
+  
+        <!-- Medication -->
+        <div style="flex: 1 1 220px; text-align: center; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          <i class="fas fa-pills" style="font-size: 2rem; color: #ffc107; margin-bottom: 1rem;"></i>
+          <h5 style="font-size: 1.2rem; margin-bottom: 1rem;">Medication</h5>
+          <canvas id="medicationChart" width="100" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Chart Scripts -->
+  <script>
+    const heartRateChart = new Chart(document.getElementById('heartRateChart'), {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'BPM',
+          data: [72, 75, 78, 73, 76, 74, 77],
+          backgroundColor: 'rgba(220, 53, 69, 0.2)',
+          borderColor: '#dc3545',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+    });
+  
+    const weightChart = new Chart(document.getElementById('weightChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Weight (kg)',
+          data: [70, 69.5, 69.2, 69],
+          backgroundColor: '#17a2b8'
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+    });
+  
+    const activityChart = new Chart(document.getElementById('activityChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Walking', 'Running', 'Cycling'],
+        datasets: [{
+          data: [40, 30, 30],
+          backgroundColor: ['#28a745', '#218838', '#1e7e34']
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+  
+    const medicationChart = new Chart(document.getElementById('medicationChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Taken', 'Missed'],
+        datasets: [{
+          data: [90, 10],
+          backgroundColor: ['#ffc107', '#dee2e6']
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+  </script>
+  
+<!-- Consultation Modal -->
+<div class="modal fade" id="consultModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Schedule Consultation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Select Doctor</label>
+                        <select class="form-select">
+                            <option>General Physician</option>
+                            <option>Cardiologist</option>
+                            <option>Dermatologist</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Date & Time</label>
+                        <input type="datetime-local" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <!-- About Us Section Start -->
+    <section id="aboutUs">
+        <div class="container">
+            <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">About Us</h2>
+            <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">Connecting Patients with Advanced Healthcare Solutions</p>
+
+            <div class="row align-items-center">
+                <!-- Image Section -->
+                <div class="col-md-6 animate__animated animate__zoomIn">
+                    <img src="https://plus.unsplash.com/premium_photo-1661775601929-8c775187bea6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aGVhbHRoJTIwY2FyZXxlbnwwfHwwfHx8MA%3D%3D" 
+                         alt="About Us - E-Health Care" 
+                         class="img-fluid rounded shadow-lg" 
+                          width="95%"
+         height="87%"
+                         loading="lazy" />
+                </div>
+
+                <!-- Content Section -->
+                <div class="col-md-6 animate__animated animate__fadeInRight">
+                    <h3 class="text-success fw-bold">Who We Are</h3>
+                    <p class="text-muted">
+                        E-Health Care is a trusted partner in providing innovative healthcare solutions to patients worldwide. With a mission to bridge the gap between technology and healthcare, we empower individuals with the tools they need to live healthier lives.
+                    </p>
+                    <h4 class="text-primary mt-4 fw-bold">Our Mission</h4>
+                    <p class="text-muted">
+                        To enhance healthcare accessibility and improve patient outcomes through personalized and data-driven solutions.
+                    </p>
+                    <h4 class="text-primary mt-4 fw-bold">Our Vision</h4>
+                    <p class="text-muted">
+                        To be a global leader in e-healthcare services, offering advanced technology for a better quality of life.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success"></i>Comprehensive virtual consultations with licensed doctors.</li>
+                        <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success"></i>Personalized health risk assessments and monitoring.</li>
+                        <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success"></i>Secure and confidential patient data management.</li>
+                    </ul>
+                    <a href="about.html" class="btn btn-primary mt-4 animate__animated animate__pulse animate__infinite">
+                        Learn More About Us <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+<!-- Cancer Article Section Start -->
+<section id="cancerArticle" class="py-5">
+    <div class="container">
+        <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">Understanding Cancer</h2>
+        <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">
+            Learn about the different types of cancer, their causes, and prevention methods.
+        </p>
+
+        <div class="row">
+            <!-- Image Section -->
+            <div class="col-md-6 animate__animated animate__zoomIn">
+                <img src="https://www.zs.com/content/dam/images/stock/Cancer-cells-vis-image-Insight.gif" 
+                     alt="Cancer Awareness" 
+                     class="img-fluid rounded shadow-lg" 
+                     width="95%"
+                     height="87%"
+                     loading="lazy" />
+            </div>
+
+            <!-- Content Section -->
+            <div class="col-md-6 animate__animated animate__fadeInRight">
+                <h4 class="text-success fw-bold">What is Cancer?</h4>
+                <p class="text-muted">
+                    Cancer refers to a group of diseases involving abnormal cell growth with the potential to invade or spread to other parts of the body. Common types include lung, breast, and skin cancer.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Causes of Cancer</h5>
+                <p class="text-muted">
+                    Cancer can be caused by a variety of factors, including lifestyle choices, environmental exposures, and genetics.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Prevention</h5>
+                <p class="text-muted">
+                    While not all cancers can be prevented, maintaining a healthy lifestyle, avoiding tobacco, and regular screening can reduce risk.
+                </p>
+                <a href="cancer.html" class="btn btn-primary mt-4 animate__animated animate__pulse animate__infinite">
+                    Learn More About Cancer <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Cancer Article Section End -->
+
+<!-- Breast Cancer Article Section Start -->
+<section id="breastCancerArticle" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">Breast Cancer Awareness</h2>
+        <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">
+            Early detection saves lives. Learn about breast cancer and how to identify the signs.
+        </p>
+
+        <div class="row">
+            <!-- Image Section -->
+            <div class="col-md-6 animate__animated animate__zoomIn">
+                <img src="https://st.depositphotos.com/1017986/3534/i/950/depositphotos_35349215-stock-photo-hands-holding-pink-breast-cancer.jpg"
+                     alt="Breast Cancer Awareness" 
+                     class="img-fluid rounded shadow-lg" 
+                     width="95%"
+                     height="87%"
+                     loading="lazy" />
+            </div>
+
+            <!-- Content Section -->
+            <div class="col-md-6 animate__animated animate__fadeInRight">
+                <h4 class="text-success fw-bold">What is Breast Cancer?</h4>
+                <p class="text-muted">
+                    Breast cancer is a disease in which cells in the breast grow out of control. It is one of the most common cancers affecting women.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Symptoms and Signs</h5>
+                <p class="text-muted">
+                    Symptoms may include lumps in the breast, changes in breast shape, or unusual discharge from the nipple.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Early Detection</h5>
+                <p class="text-muted">
+                    Regular self-examinations, clinical exams, and mammograms can help detect breast cancer in its early stages.
+                </p>
+                <a href="breastCancer.html" class="btn btn-primary mt-4 animate__animated animate__pulse animate__infinite">
+                    Learn More About Breast Cancer <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breast Cancer Article Section End -->
+
+<!-- Mental Health Article Section Start -->
+<section id="mentalHealthArticle" class="py-5">
+    <div class="container">
+        <h2 class="text-center text-primary fw-bold animate__animated animate__fadeInDown">Mental Health Awareness</h2>
+        <p class="text-center text-secondary mb-5 animate__animated animate__fadeInUp">
+            Understanding mental health is crucial for maintaining overall well-being.
+        </p>
+
+        <div class="row">
+           <!-- Image Section -->
+<div class="col-md-6 animate__animated animate__zoomIn">
+    <img src="https://st4.depositphotos.com/18349226/21253/i/600/depositphotos_212533790-stock-photo-adult-child-hands-holding-lime.jpg"
+         alt="Mental Health Awareness" 
+         class="img-fluid rounded shadow-lg" 
+         width="95%"
+         height="87%"
+         loading="lazy" />
+</div>
+
+            <!-- Content Section -->
+            <div class="col-md-6 animate__animated animate__fadeInRight">
+                <h4 class="text-success fw-bold">What is Mental Health?</h4>
+                <p class="text-muted">
+                    Mental health includes emotional, psychological, and social well-being, influencing how people think, feel, and act.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Common Mental Health Issues</h5>
+                <p class="text-muted">
+                    Anxiety, depression, and stress are some of the most common mental health conditions.
+                </p>
+                <h5 class="text-primary mt-4 fw-bold">Taking Care of Mental Health</h5>
+                <p class="text-muted">
+                    Regular physical activity, a balanced diet, good sleep hygiene, and seeking professional help when needed can promote mental well-being.
+                </p>
+                <a href="mentalHealth.html" class="btn btn-primary mt-4 animate__animated animate__pulse animate__infinite">
+                    Learn More About Mental Health <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Mental Health Article Section End -->
+
+
+
+
+
+
+
+            <!-- Values Section -->
+            <div class="row mt-5">
+                <div class="col-md-4 text-center animate__animated animate__fadeInUp">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary fw-bold">Patient-Centric Care</h5>
+                    <p class="text-muted">We prioritize the needs and well-being of our patients at every step.</p>
+                </div>
+                <div class="col-md-4 text-center animate__animated animate__fadeInUp">
+                    <i class="fas fa-stethoscope fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary fw-bold">Advanced Technology</h5>
+                    <p class="text-muted">Utilizing the latest innovations to deliver effective healthcare solutions.</p>
+                </div>
+                <div class="col-md-4 text-center animate__animated animate__fadeInUp">
+                    <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                    <h5 class="text-primary fw-bold">Data Privacy & Security</h5>
+                    <p class="text-muted">Ensuring the highest level of confidentiality for all patient records.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Us Section End -->
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Initialize Charts
+      const chartConfig = {
+        type: 'line',
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      };
+    
+      // Heart Rate Chart
+      new Chart(document.getElementById('heartRateChart'), {
+        ...chartConfig,
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+          datasets: [{
+            data: [72, 75, 73, 78, 76],
+            borderColor: '#dc3545'
+          }]
+        }
+      });
+    
+      // Appointment Form Handling
+      document.querySelector('#consultModal form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+          doctorType: e.target.querySelector('select').value,
+          dateTime: e.target.querySelector('input[type="datetime-local"]').value,
+          userInfo: {} // Add user data collection logic
+        };
+    
+        try {
+          const response = await fetch('/api/appointments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+          
+          if (response.ok) {
+            alert('Appointment booked successfully!');
+            bootstrap.Modal.getInstance(document.getElementById('consultModal')).hide();
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      });
+    </script>
+    
+<!-- footer start -->
+<footer class="footer fixed-footer">
+    <div class="container">
+        <div class="row gy-3 align-items-start">
+
+            <!-- About Section -->
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-about">
+                    <div class="footer-logo mb-2">
+                        <a href="index.html"><img src="./assets/images/logo-white.svg" alt="E-Health Care Logo" class="img-fluid" style="max-width: 120px;"></a>
+                    </div>
+                    <p style="font-size: 0.9rem;">E-Health Care is a dream turned into a tech-based startup, creating positive impacts in people's lives.</p>
+                    <div class="d-flex gap-3 mt-2">
+                        <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-facebook fa-lg" style="color:#30629d;"></i></a>
+                        <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-twitter fa-lg" style="color:#00A7E6;"></i></a>
+                        <a href="example.com" target="_blank" class="social-icons"><i class="fab fa-linkedin fa-lg" style="color:#0073B1;"></i></a>
+                        <a href="https://www.instagram.com/ni.kh.il__18/" target="_blank" class="social-icons"><i class="fab fa-instagram fa-lg" style="color:#D32C86;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <div class="col-lg-2 col-md-3 col-6">
+                <div class="footer-widget">
+                    <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Information</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">About Us</a></li>
+                        <li><a href="#" class="text-light">Contact Us</a></li>
+                        <li><a href="#" class="text-light">Doctor Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="col-lg-2 col-md-3 col-6">
+                <div class="footer-widget">
+                    <h6 class="text-uppercase fw-bold" style="font-size: 0.95rem;">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">My Account</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="row mt-3">
+            <div class="col-lg-12 text-center">
+                <div class="footer-copyright-text">
+                    <p class="mb-0" style="font-size: 0.85rem;">&copy; Copyright <script>
+                            document.write(new Date().getFullYear());
+                        </script> | <a href="index.html" class="text-primary">E-Health Care</a> | All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!-- Main JS -->
+    <script type="text/javascript" src="text.json"></script>
+    <script src="./assets/js/script.js"></script>
+
+    <!-- Add Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
